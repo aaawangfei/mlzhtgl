@@ -12,17 +12,17 @@ const treeTableRouter = {
     icon: 'tree-table'
   },
   children: [
-    {
-      path: 'index',
-      component: () => import('@/views/tree-table/index'),
-      name: 'TreeTableDemo',
-      meta: { title: 'treeTable' }
-    },
+//     {
+//       path: 'index',
+//       component: () => import('@/views/tree-table/index'),
+//       name: 'TreeTableDemo',
+//       meta: { title: 'treeTable' }
+//     },
     {
       path: 'custom',
       component: () => import('@/views/tree-table/custom'),
       name: 'CustomTreeTableDemo',
-      meta: { title: 'customTreeTable' }
+      meta: { title: '自定义树表' }
     }
   ]
 }

@@ -9,20 +9,12 @@
 
       <div class="option-item">
         <el-tag>Expand All</el-tag>
-        <el-switch
-          v-model="defaultExpandAll"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          @change="reset"/>
+        <el-switch v-model="defaultExpandAll" active-color="#13ce66" inactive-color="#ff4949" @change="reset"/>
       </div>
 
       <div class="option-item">
         <el-tag>Show Checkbox</el-tag>
-        <el-switch
-          v-model="showCheckbox"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-        />
+        <el-switch v-model="showCheckbox" active-color="#13ce66" inactive-color="#ff4949" />
       </div>
 
     </div>

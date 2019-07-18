@@ -1,21 +1,10 @@
 <template>
   <div>
     <div class="app-container">
-
-      <el-button type="primary" size="small" style="margin:0 0 20px 0;">
+      <!-- <el-button type="primary" size="small" style="margin:0 0 20px 0;">
         <a href="https://github.com/PanJiaChen/vue-element-admin/tree/master/src/components/TreeTable" target="_blank">文档</a>
-      </el-button>
-
-      <tree-table
-        ref="TreeTable"
-        :data="tableData"
-        :default-expand-all="true"
-        :columns="columns"
-        border
-        default-children="children"
-        @selection-change	="selectChange"
-      >
-
+      </el-button> -->
+      <tree-table ref="TreeTable" :data="tableData" :default-expand-all="true" :columns="columns" border default-children="children" @selection-change	="selectChange">
         <template slot="selection">
           <el-table-column type="selection" align="center" width="55"/>
         </template>
@@ -24,7 +13,7 @@
           <el-table-column type="expand" width="55">
             <template>
               <el-tag type="info">
-                这只是一个占位符插槽，您可以显示任何内容。
+                占位符插槽，您可以显示任何内容。
               </el-tag>
             </template>
           </el-table-column>

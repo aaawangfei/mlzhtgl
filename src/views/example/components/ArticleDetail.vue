@@ -13,16 +13,13 @@
 
       <div class="createPost-main-container">
         <el-row>
-
           <Warning />
-
           <el-col :span="24">
             <el-form-item style="margin-bottom: 40px;" prop="title">
               <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
                 标题
               </MDinput>
             </el-form-item>
-
             <div class="postInfo-container">
               <el-row>
                 <el-col :span="8">
@@ -41,13 +38,7 @@
 
                 <el-col :span="6">
                   <el-form-item label-width="60px" label="重要性:" class="postInfo-container-item">
-                    <el-rate
-                      v-model="postForm.importance"
-                      :max="3"
-                      :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-                      :low-threshold="1"
-                      :high-threshold="3"
-                      style="margin-top:8px;"/>
+                    <el-rate v-model="postForm.importance" :max="3" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :low-threshold="1" :high-threshold="3" style="margin-top:8px;"/>
                   </el-form-item>
                 </el-col>
               </el-row>

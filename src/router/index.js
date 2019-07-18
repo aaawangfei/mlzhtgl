@@ -74,7 +74,7 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true }
+        meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true }
       }
     ]
   },
@@ -87,7 +87,7 @@ export const constantRouterMap = [
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', affix: true }
+        meta: { title: '监控', icon: 'documentation', affix: true }
       }
     ]
   },
@@ -100,10 +100,46 @@ export const constantRouterMap = [
         path: 'index',
         component: () => import('@/views/guide/index'),
         name: 'Guide',
-        meta: { title: 'guide', icon: 'guide', noCache: true }
+        meta: { title: '项目创建管理', icon: 'guide', noCache: true }
       }
     ]
-  }
+  },
+	{
+	  path: '/icon',
+	  component: Layout,
+	  children: [
+	    {
+	      path: 'index',
+	      component: () => import('@/views/svg-icons/index'),
+	      name: 'Icons',
+	      meta: { title: '页面表格', icon: 'icon', noCache: true }
+	    }
+	  ]
+	},
+	{
+	  path: '/commit',
+	  component: Layout,
+	  children: [
+	    {
+	      path: 'index',
+	      component: () => import('@/views/commit/index'),
+	      name: 'comlayout',
+	      meta: { title: '常用布局', icon: 'edit', noCache: true }
+	    }
+	  ]
+	},
+	{
+	  path: '/tree-tab',
+	  component: Layout,
+	  children: [
+	    {
+	      path: 'index',
+	      component: () => import('@/views/tree-tab/index'),
+	      name: 'CustomTreeTableDemo',
+	      meta: { title: '自定义表格', icon: 'tree-table', noCache: true }
+	    }
+	  ]
+	},
 ]
 
 export default new Router({
@@ -144,19 +180,7 @@ export const asyncRouterMap = [
       }
     ]
   },
-
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/svg-icons/index'),
-        name: 'Icons',
-        meta: { title: 'icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
+  
 
   /** When your routing table is too long, you can split it into small modules**/
   componentsRouter,
@@ -234,21 +258,6 @@ export const asyncRouterMap = [
       }
     ]
   },
-
-  {
-    path: '/error-log',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'log',
-        component: () => import('@/views/errorLog/index'),
-        name: 'ErrorLog',
-        meta: { title: 'errorLog', icon: 'bug' }
-      }
-    ]
-  },
-
   {
     path: '/excel',
     component: Layout,
@@ -295,26 +304,6 @@ export const asyncRouterMap = [
       }
     ]
   },
-
-  {
-    path: '/pdf',
-    component: Layout,
-    redirect: '/pdf/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/pdf/index'),
-        name: 'PDF',
-        meta: { title: 'pdf', icon: 'pdf' }
-      }
-    ]
-  },
-  {
-    path: '/pdf/download',
-    component: () => import('@/views/pdf/download'),
-    hidden: true
-  },
-
   {
     path: '/theme',
     component: Layout,
@@ -342,30 +331,5 @@ export const asyncRouterMap = [
       }
     ]
   },
-
-  {
-    path: '/i18n',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/i18n-demo/index'),
-        name: 'I18n',
-        meta: { title: 'i18n', icon: 'international' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'externalLink', icon: 'link' }
-      }
-    ]
-  },
-
   { path: '*', redirect: '/404', hidden: true }
 ]
