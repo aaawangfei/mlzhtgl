@@ -3,24 +3,24 @@
 		<el-form :model="organForm" :rules="rules" ref="organForm" label-width="100px">
 			<el-form-item label="栏目类型" prop="displayMode">
 			 <el-radio-group v-model="organForm.displayMode">
-                <el-radio-button :label="0">一级栏目</el-radio-button>
-                <el-radio-button :label="1">二级栏目</el-radio-button>
+                <el-radio-button :label="0">一级楼层</el-radio-button>
+                <el-radio-button :label="1">二级楼层</el-radio-button>
             </el-radio-group>
 			</el-form-item>
 			<div v-if="organForm.displayMode===0">
-				<el-form-item label="栏目名称" prop="name">
+				<el-form-item label="楼层名称" prop="name">
 					<el-input v-model="organForm.name" placeholder='请输入栏目名称'></el-input>
 				</el-form-item>
-				<el-form-item label="栏目描述" prop="desc">
+				<el-form-item label="楼层描述" prop="desc">
 					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入栏目描述'></el-input>
 				</el-form-item>
-				<el-form-item label="栏目排序" prop="type">
+				<el-form-item label="楼层排序" prop="type">
 					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序" @change="typeChange">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="栏目图片" prop="coverImage" ref="uploadElement">
+				<el-form-item label="楼层图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
 					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
@@ -28,6 +28,36 @@
 					<el-dialog :visible.sync="dialogVisible">
 						<img width="30%" :src="organForm.coverImage" alt="">
 					</el-dialog>
+				</el-form-item>
+				<el-form-item label="展示风格" prop="style">
+					<el-radio-group v-model="organForm.style">
+						<el-radio :label="0">单行</el-radio>
+						<el-radio :label="1">多行</el-radio>
+					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="" prop="pay">
+					<el-radio-group v-model="organForm.pay">
+						<el-radio :label="0">组合</el-radio>
+						<el-radio :label="1">简单</el-radio>
+					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="是否滚动" prop="rolling">
+					<el-radio-group v-model="organForm.rolling">
+						<el-radio :label="0">是</el-radio>
+						<el-radio :label="1">否</el-radio>
+					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="品牌推荐" prop="Brand">
+					<el-radio-group v-model="organForm.Brand">
+						<el-radio :label="0">要</el-radio>
+						<el-radio :label="1">不要</el-radio>
+					</el-radio-group>
+				</el-form-item>
+				<el-form-item label="热门产品推荐" prop="Popular">
+					<el-radio-group v-model="organForm.Popular">
+						<el-radio :label="0">要</el-radio>
+						<el-radio :label="1">不要</el-radio>
+					</el-radio-group>
 				</el-form-item>
 			</div>
 			<div v-if="organForm.displayMode===1">
@@ -126,6 +156,8 @@
 					desc: '',
 					superior: '',
 					displayMode: 0,
+					style:0,
+					pay:0,
 				},
 				organType: [],
 				rules: organRules,
