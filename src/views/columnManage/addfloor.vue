@@ -61,25 +61,25 @@
 				</el-form-item>
 			</div>
 			<div v-if="organForm.displayMode===1">
-				<el-form-item label="上级栏目" prop="type">
+				<el-form-item label="上级楼层" prop="type">
 					<el-select filterable v-model="organForm.type" placeholder="请选择上级栏目" @change="typeChange">
 						<el-option v-for="item in optionsa" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="栏目名称" prop="name">
+				<el-form-item label="楼层名称" prop="name">
 					<el-input v-model="organForm.name" placeholder='请输入栏目名称'></el-input>
 				</el-form-item>
-				<el-form-item label="栏目描述" prop="desc">
+				<el-form-item label="楼层描述" prop="desc">
 					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入栏目描述'></el-input>
 				</el-form-item>
-				<el-form-item label="栏目排序" prop="type">
+				<el-form-item label="楼层排序" prop="type">
 					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序" @change="typeChange">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="栏目图片" prop="coverImage" ref="uploadElement">
+				<el-form-item label="楼层图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
 					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
@@ -87,12 +87,6 @@
 					<el-dialog :visible.sync="dialogVisible">
 						<img width="30%" :src="organForm.coverImage" alt="">
 					</el-dialog>
-				</el-form-item>
-				<el-form-item label="栏目展示" prop="name">
-					<el-input v-model="organForm.name" placeholder='请输入栏目展示'></el-input>
-				</el-form-item>
-				<el-form-item label="栏目标签" prop="name">
-					<el-input v-model="organForm.name" placeholder='请输入栏目标签'></el-input>
 				</el-form-item>
 			</div>
 			<el-form-item>
@@ -188,13 +182,13 @@
 				}],
 				optionsa: [{
 					value: '1',
-					label: '一级栏目名称1'
+					label: '一级名称1'
 				}, {
 					value: '2',
-					label: '一级栏目名称2'
+					label: '一级名称2'
 				}, {
 					value: '3',
-					label: '一级栏目名称3'
+					label: '一级名称3'
 				}],
 				value: '',
 			}
