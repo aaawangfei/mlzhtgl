@@ -46,13 +46,13 @@
 						</el-button>
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item>
-								<span @click="viewCardList(scope.row)">关联商品</span>
+							<span @click="handleRelatedStatus(scope.row)">关联商品</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
 								<span @click="handleModifyStatus(scope.row)">编辑栏目</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
-								<span @click="handleModifyStatus(scope.row)">商品维护</span>
+								<span @click="handlegoodsmain(scope.row)">商品维护</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
 								<span @click="dialogVisible = true">禁用</span>
@@ -61,7 +61,7 @@
 								<span @click="viewCardList(scope.row)">详情</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
-								<span @click="handleDeleteStatus(scope.row)">删除</span>
+								<span @click="deleteOrganList(scope.row)">删除</span>
 							</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
@@ -77,8 +77,8 @@
 						<el-button type="primary" @click="deleteBtn()">确 定</el-button>
 					</span>
 		</el-dialog>
-		<el-dialog title="卡片挂失" :visible.sync="dialogVisible" width="30%">
-			<span>是否挂失该卡?</span>
+		<el-dialog title="禁用" :visible.sync="dialogVisible" width="30%">
+			<span>是否禁用栏目?</span>
 			<span slot="footer" class="dialog-footer">
 		   <el-button @click="dialogVisible = false">取 消</el-button>
 		   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -126,11 +126,13 @@
 			return {
 				data: [],
 				loading:false,
+				search: "",
 				columns: tableHeader,
 				//删除确认
 				deleteDialogVisible: false,
 				//树图 是否全部打开
 				defaultExpandAll: false,
+				dialogVisible:false,
 				deleteRow: {},
 				organName: '',
 				options: [{
@@ -214,6 +216,21 @@
 				this.$router.push({
 					id: sessionStorage.formInit,
 					path: '/columnManage/updatecolumnList'
+				});
+			},
+			//查看
+			viewCardList(row) {
+				sessionStorage.viewCardType=row.type=="外部"
+				this.$router.push({
+					path: '/columnManage/lmview'
+				})
+			},
+			//商品维护
+			handlegoodsmain(row) {
+				sessionStorage.formInit = row.id;
+				this.$router.push({
+					id: sessionStorage.formInit,
+					path: '/columnManage/lmgoodsmain'
 				});
 			},
 			//删除确认

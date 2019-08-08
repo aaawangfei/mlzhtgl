@@ -142,7 +142,6 @@
 	export default {
 		name: 'organ',
 		data() {
-
 			return {
 				organForm: {
 					name: '',

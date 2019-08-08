@@ -15,14 +15,14 @@
 					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入栏目描述'></el-input>
 				</el-form-item>
 				<el-form-item label="栏目排序" prop="type">
-					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序" @change="typeChange">
+					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="栏目图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -32,7 +32,7 @@
 			</div>
 			<div v-if="organForm.displayMode===1">
 				<el-form-item label="上级栏目" prop="type">
-					<el-select filterable v-model="organForm.type" placeholder="请选择上级栏目" @change="typeChange">
+					<el-select filterable v-model="organForm.type" placeholder="请选择上级栏目">
 						<el-option v-for="item in optionsa" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
@@ -44,14 +44,14 @@
 					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入栏目描述'></el-input>
 				</el-form-item>
 				<el-form-item label="栏目排序" prop="type">
-					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序" @change="typeChange">
+					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="栏目图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -123,6 +123,7 @@
 				organForm: {
 					name: '',
 					typeId: '',
+					coverImage: '',
 					desc: '',
 					superior: '',
 					displayMode: 0,
@@ -133,6 +134,7 @@
 				currentSequence: '',
 				pid: '',
 				parentId: '',
+				dialogVisible:false,
 				fileList: [],
 				photourl: [],
 				treeArrKey: '',

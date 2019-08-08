@@ -46,22 +46,22 @@
 						</el-button>
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item>
-								<span @click="viewCardList(scope.row)">关联商品</span>
+							<span @click="handleRelatedStatus">关联商品</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
 								<span @click="handleModifyStatus(scope.row)">编辑</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
-								<span @click="handleModifyStatus(scope.row)">商品维护</span>
+								<span @click="handlegoodsmain(scope.row)">商品维护</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
-								<span @click="dialogVisible = true">禁用</span>
+								<span>禁用</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
 								<span @click="viewCardList(scope.row)">详情</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
-								<span @click="handleDeleteStatus(scope.row)">删除</span>
+								<span @click="deleteOrganList(scope.row)">删除</span>
 							</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
@@ -127,11 +127,19 @@
 				data: [],
 				loading:false,
 				columns: tableHeader,
+				defaultPropsUser: {
+					children: 'children',
+					label: 'organizationName'
+				},
 				//删除确认
 				deleteDialogVisible: false,
 				//树图 是否全部打开
 				defaultExpandAll: false,
+				dialogRelateVisible: false,
+				dialogVisible: false,
 				deleteRow: {},
+				relateUserVal:[],
+				tableData: [],
 				organName: '',
 				options: [{
                   value: '状态',
@@ -150,6 +158,22 @@
 				  	page: 1,
 				  	limit: 10
 				  },
+				  //关联用户表格
+				  relatedData: [],
+				  relatedData1: [],
+				  search: "",
+				  //关联用户多选
+				  multipleSelection: [],
+				  multipleSelectionId: [],
+				  checkAllUser: false,
+				  checkAllRoles: false,
+				  loading:true,
+				  checkedUser: [],
+				  checkedUserId: [],
+				  checkedRoles: [],
+				  relateUserId: [],
+				  isIndeterminate: true,
+				  isIndeterminate1: true,
 			      }
 		}, 
 		created() {
@@ -160,6 +184,11 @@
 			handleCreate() {
 				this.$router.push({
 					path: '/columnManage/addfloor'
+				})
+			},
+			handleRelatedStatus() {
+				this.$router.push({
+					path: '/columnManage/Associatedgoods'
 				})
 			},
 			getList() {
@@ -216,10 +245,25 @@
 					path: '/columnManage/updatecolumnList'
 				});
 			},
+			//商品维护
+			handlegoodsmain(row) {
+				sessionStorage.formInit = row.id;
+				this.$router.push({
+					id: sessionStorage.formInit,
+					path: '/columnManage/lmgoodsmain'
+				});
+			},
 			//删除确认
 			deleteOrganList(row) {
 				this.deleteDialogVisible = true;
 				this.deleteRow = row;
+			},
+			//查看
+			viewCardList(row) {
+				sessionStorage.viewCardType=row.type=="外部"
+				this.$router.push({
+					path: '/columnManage/floorview'
+				})
 			},
 			//删除确定
 			deleteBtn() {
