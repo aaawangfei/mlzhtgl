@@ -1,14 +1,6 @@
 <template>
 	<div class="app-container">
 		<div class="filter-container">
-			<el-select class="filter-item" v-model="value" placeholder="请选择">
-		        <el-option
-		          v-for="item in options"
-		          :key="item.value"
-		          :label="item.label"
-		          :value="item.value">
-		        </el-option>
-		    </el-select>
 			<div class="filter-item el-input el-input--medium" style="width: 200px;">
 				<el-input type="text" v-model="search" autocomplete="off" placeholder="请输入搜索内容" clearable></el-input>
 			</div>
@@ -85,7 +77,7 @@
 		</el-dialog>
 		<!-- 禁用提示框 -->
 		<el-dialog title="提示" :visible.sync="deleteDialogVisible" width="30%">
-			<span>确定要删除吗？</span>
+			<span>确定要删除该卡片类型吗？</span>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="forbiddenDialogVisible = false">取 消</el-button>
 				<el-button type="primary" @click="deleteBtn">确 定</el-button>

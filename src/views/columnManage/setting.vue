@@ -39,7 +39,7 @@
 			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
 				<el-form-item label="图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 306px;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -63,7 +63,7 @@
 		</el-dialog>
 		<!-- 禁用提示框 -->
 		<el-dialog title="提示" :visible.sync="deleteDialogVisible" width="30%">
-			<span>确定要删除该卡片类型吗？</span>
+			<span>确定要删除吗？</span>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="forbiddenDialogVisible = false">取 消</el-button>
 				<el-button type="primary" @click="deleteBtn">确 定</el-button>
@@ -227,9 +227,16 @@
 		}
 	}
 </script>
-
-<style>
-.pagination-container {
+<style scoped>
+	.el-input,
+	.el-radio-group,
+	.el-select,
+	.el-dropdown,
+	.el-textarea,
+	.el-cascader {
+		width: 300px;
+	}
+	.pagination-container {
 		text-align: center;
 		margin-top: 0px;
 		display: block;
@@ -242,15 +249,5 @@
 	}
 	img {
 	vertical-align: middle;
-	}
-</style>
-<style scoped>
-	.el-input,
-	.el-radio-group,
-	.el-select,
-	.el-dropdown,
-	.el-textarea,
-	.el-cascader {
-		width: 80%;
 	}
 </style>

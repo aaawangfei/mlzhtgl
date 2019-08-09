@@ -8,7 +8,8 @@ import Layout from '@/views/layout/Layout'
 
 /* Router Modules */
 import columnRouter from './modules/columnManage'
-
+import MarkactsRouter from './modules/MarkactsManage'
+import BasicdataRouter from './modules/BasicdataManage'
 /** note: sub-menu only appear when children.length>=1
  *  detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  **/
@@ -86,6 +87,8 @@ export const asyncRouterMap = [
 
   /** When your routing table is too long, you can split it into small modules**/
 	columnRouter,
+	MarkactsRouter,
+	BasicdataRouter,
 //   {
 //     path: '/error',
 //     component: Layout,

@@ -1,16 +1,8 @@
 <template>
 	<div class="app-container">
 		<div class="filter-container">
-			<el-select class="filter-item" v-model="value" placeholder="请选择">
-		        <el-option
-		          v-for="item in options"
-		          :key="item.value"
-		          :label="item.label"
-		          :value="item.value">
-		        </el-option>
-		    </el-select>
 			<div class="filter-item el-input el-input--medium" style="width: 200px;">
-				<el-input type="text" v-model="search" autocomplete="off" placeholder="请输入搜索内容" clearable></el-input>
+				<el-input style="width:100%" type="text" v-model="search" autocomplete="off" placeholder="请输入搜索内容" clearable></el-input>
 			</div>
 			<button type="button" @click="searchClick()" class="el-button filter-item el-button--primary el-button--medium">
 			<i class="el-icon-search"></i>
@@ -18,38 +10,28 @@
 		</button>
 			<el-button type="text" style="margin-left: 10px;float: right;color:#606266" @click="handleCreate">	
 			<i class="el-icon-plus"></i>
-			<span>添加banner</span>
+			<span>添加</span>
 		</el-button>
 		</div>
 		<el-table v-loading="listLoading" :data="list" fit highlight-current-row class="tableWidth">
 			<el-table-column label="序号" prop="key" align="center">
 			</el-table-column>
-			<el-table-column label="banner名称" prop="bannername" align="center">
+			<el-table-column label="品牌名称" prop="name" align="center">
 			</el-table-column>
-			<el-table-column label="位置描述" prop="Podescription" align="center">
-			</el-table-column>
-			<el-table-column label="轮播间隔时间（秒）" prop="banners" width="150" align="center">
-			</el-table-column>
-			<el-table-column label="关联位置" prop="Relatedposition" align="center">
-			</el-table-column>
-			<el-table-column label="栏目图片" prop="img" align="center">
+			<el-table-column label="品牌logo" prop="img" align="center">
 				<template slot-scope="scope">
 					<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
 				</template>
 			</el-table-column>
-			<el-table-column label="状态" prop="status" align="center">
+			<el-table-column label="生产厂商" prop="Manufacturers" width="150" align="center">
+			</el-table-column>
+			<el-table-column label="创建时间" prop="Creatime" align="center">
 			</el-table-column>
 			<el-table-column fixed="right" label="操作" align="center" width="218">
 				<template slot-scope="scope">
 					<span @click="handleUpdate(scope.row)" class="pointer">
 			          		<el-tag>编辑</el-tag>
-			          	</span>
-					<span @click="dialogVisible = true" class="pointer">
-					  		<el-tag>禁用</el-tag>
-					  	</span>
-					<span @click="handleModifyStatus(scope.row)" class="pointer">
-					  		<el-tag>设置</el-tag>
-					  	</span>		
+			          	</span>	
 					<span @click="handleDelete(scope.row)" class="pointer">
 			                <el-tag type="danger">删除</el-tag>
 				       </span>
@@ -61,21 +43,21 @@
 		<pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-				<el-form-item label="banner名称" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入banner名称" />
+			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="97px" style="width: 600px;">
+				<el-form-item label="品牌名称" prop="name">
+					<el-input v-model="temp.name" placeholder="请输入品牌名称" />
 				</el-form-item>
-				<el-form-item label="位置描述" prop="desc">
-					<el-input type="textarea" v-model="temp.desc" placeholder='请输入位置描述'></el-input>
+				<el-form-item label="品牌LOGO" prop="coverImage" ref="uploadElement">
+					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 508px;" :limit="1" :on-remove="handleRemove">
+						<i class="el-icon-plus"></i>
+					</el-upload>
+					<el-dialog :visible.sync="dialogVisible">
+						<img width="30%" :src="temp.coverImage" alt="">
+					</el-dialog>
 				</el-form-item>
-				<el-form-item label="轮播间隔时间" prop="name" width="100">
-					<el-input style="width:30%" v-model="temp.name" placeholder='请输入'></el-input><span style="margin-left: 5px;">秒</span>
-				</el-form-item>
-				<el-form-item label="关联" prop="Brand">
-					<el-radio-group v-model="temp.Brand">
-						<el-radio :label="0">首页</el-radio>
-						<el-radio :label="1">栏目</el-radio>
-					</el-radio-group>
+				<el-form-item style="width:600px" label="生产厂商列表" prop="desc">
+				<el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入生产厂商名称" v-model="value" :data="data"></el-transfer>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -85,18 +67,11 @@
 		</el-dialog>
 		<!-- 禁用提示框 -->
 		<el-dialog title="提示" :visible.sync="deleteDialogVisible" width="30%">
-			<span>确定要删除吗？</span>
+			<span>确定要删除该品牌吗？</span>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="forbiddenDialogVisible = false">取 消</el-button>
 				<el-button type="primary" @click="deleteBtn">确 定</el-button>
 			</span>
-		</el-dialog>
-		<el-dialog title="禁用" :visible.sync="dialogVisible" width="30%">
-			<span>是否禁用banner?</span>
-			<span slot="footer" class="dialog-footer">
-		   <el-button @click="dialogVisible = false">取 消</el-button>
-		   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-		  </span>
 		</el-dialog>
 	</div>
 </template>
@@ -107,9 +82,21 @@
 			Pagination
 		},
 		data() {
+			const generateData = _ => {
+			  const data = [];
+			  for (let i = 1; i <= 15; i++) {
+			    data.push({
+			      key: i,
+			      label: `国中生产 ${ i }`,
+			    });
+			  }
+			  return data;
+			};
 			return {
 				search: "",
 				list: null,
+				data: generateData(),
+				value: [1, 4],
 				total: 0,
 				listQuery: {
 					page: 1,
@@ -121,22 +108,13 @@
 				},
 				dialogStatus: "",
 				dialogVisible: false,
+				fileList: [],
+				photourl: [],
 				dialogFormVisible: false,
 				deleteDialogVisible: false,
 				listLoading: true,
-				options: [{
-				  value: '状态',
-				  label: '状态'
-				  }, {
-				  value: '选项2',
-				  label: '启用中'
-				  }, {
-				  value: '选项3',
-				  label: '禁用中'
-				  }],
-				  value: '状态',
 				temp: {
-					Brand:0,
+					coverImage:0,
 				},
 			}
 		},
@@ -147,26 +125,58 @@
 			searchClick() {
 
 			},
+			handleResp(res) {
+				this.ruleForm.photourl.push(res.data);
+			
+			},
+			handlechange(file, fileList) {
+				this.ruleForm.coverImage = fileList;
+				if(fileList) {
+					this.$refs['uploadElement'].clearValidate();
+				}
+			},
+			beforeAvatarUpload(file) {
+				var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+				const extension = testmsg === 'jpg'
+				const extension2 = testmsg === 'png'
+				const isLt2M = file.size / 1024 / 1024 < 10
+				if(!extension && !extension2) {
+					this.$message({
+						message: '上传文件只能是 jpg、png格式!',
+						type: 'warning'
+					});
+				}
+				if(!isLt2M) {
+					this.$message({
+						message: '上传文件大小不能超过 10MB!',
+						type: 'warning'
+					});
+				}
+				return extension || extension2 && isLt2M
+			},
+			exceed(files, fileList) {
+				this.$message("图片上传已超出限制个数!");
+			},
+			handleRemove(file, fileList) {
+				this.ruleForm.photourl = _.without(this.ruleForm.photourl, file.response.data);
+			
+			},
 			getList() {
 				this.listLoading = false;
 				this.list = [];
 				this.list = [{
 					    key:'1',
-						bannername: '首页轮播图',
-						Podescription: '轮播图位置',
-						banners: '1',
-						Relatedposition:'栏目名称',
+						name: '阿迪',
 						img:'',
-						status:'启用中'
+						Manufacturers: '宜家生产、哀家生产',
+						Creatime: '20190725  10:20:00',
 					},
 					{
-						    key:'2',
-							bannername: '首页轮播图',
-							Podescription: '轮播图位置',
-							banners: '2',
-							Relatedposition:'栏目名称',
-							img:'',
-							status:'禁用中'
+						key:'2',
+						name: '阿迪',
+						img:'',
+						Manufacturers: '宜家生产、哀家生产',
+						Creatime: '20190725  10:20:00',
 					}];
 				this.total = 2;
 			},
@@ -200,14 +210,6 @@
 					}
 				});
 			},
-			//设置
-			handleModifyStatus(row) {
-				sessionStorage.formInit = row.id;
-				this.$router.push({
-					id: sessionStorage.formInit,
-					path: '/columnManage/setting'
-				});
-			},
 			handleDelete(row) {
 				this.deleteDialogVisible = true;
 			},
@@ -217,11 +219,30 @@
 		}
 	}
 </script>
-
-<style>
-.pagination-container {
+<style scoped>
+    .pagination-container {
 		text-align: center;
 		margin-top: 0px;
 		display: block;
+	}
+	img {
+	vertical-align: middle;
+	}
+	.el-input,
+	.el-radio-group,
+	.el-select,
+	.el-dropdown,
+	.el-textarea,
+	.el-cascader {
+		width: 400px;
+	}
+	.el-upload-list--picture-card .el-upload-list__item,
+	.el-upload--picture-card {
+		width: 31.33%;
+		height: auto;
+		margin: 0 2% 2% 0;
+	}
+	img {
+	vertical-align: middle;
 	}
 </style>
