@@ -19,7 +19,7 @@
 					搜索
 				</el-button>
 				<br />
-				<el-button style="float: left;margin-bottom: 20px;" type="primary" icon="el-icon-delete" @click="searchContent()">
+				<el-button style="float: left;margin-bottom: 20px;" type="primary" icon="el-icon-delete" @click="dialogVisible = true">
 					批量移除
 				</el-button>
 				<el-button style="float: left;margin-bottom: 20px;" type="primary" icon="el-icon-bell" @click="searchContent()">
@@ -59,7 +59,7 @@
 						<span @click="deleteOrganList(scope.row)">移除</span>
 					</el-dropdown-item>
 		  				<el-dropdown-item>
-		  					<span @click="dialogVisible = true">置顶</span>
+		  					<span>置顶</span>
 		  				</el-dropdown-item>
 						</el-dropdown-menu>
 		  		</el-dropdown>
@@ -76,7 +76,7 @@
 					</span>
 		</el-dialog>
 		<el-dialog title="卡片挂失" :visible.sync="dialogVisible" width="30%">
-			<span>是否挂失该卡?</span>
+			<span>是否批量移除?</span>
 			<span slot="footer" class="dialog-footer">
 		   <el-button @click="dialogVisible = false">取 消</el-button>
 		   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -127,6 +127,7 @@
 				columns: tableHeader,
 				//删除确认
 				deleteDialogVisible: false,
+				dialogVisible:false,
 				//树图 是否全部打开
 				defaultExpandAll: false,
 				deleteRow: {},

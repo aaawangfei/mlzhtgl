@@ -19,7 +19,7 @@
 					搜索
 				</el-button>
 				<br />
-				<el-button style="float: left;margin-bottom: 20px;" type="primary" icon="el-icon-delete" @click="searchContent()">
+				<el-button style="float: left;margin-bottom: 20px;" type="primary" icon="el-icon-delete" @click="dialogVisible = true">
 					批量移除
 				</el-button>
 				<el-button style="float: left;margin-bottom: 20px;" type="primary" icon="el-icon-bell" @click="searchContent()">
@@ -59,7 +59,7 @@
 						<span @click="deleteOrganList(scope.row)">移除</span>
 					</el-dropdown-item>
 		  				<el-dropdown-item>
-		  					<span @click="dialogVisible = true">置顶</span>
+		  					<span>置顶</span>
 		  				</el-dropdown-item>
 						</el-dropdown-menu>
 		  		</el-dropdown>
@@ -129,6 +129,7 @@
 				deleteDialogVisible: false,
 				//树图 是否全部打开
 				defaultExpandAll: false,
+				dialogVisible:false,
 				deleteRow: {},
 				organName: '',
 				multipleSelection: [],
