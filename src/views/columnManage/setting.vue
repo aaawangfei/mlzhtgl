@@ -227,6 +227,17 @@
 		}
 	}
 </script>
+<style>
+	.el-upload-list--picture-card .el-upload-list__item,
+	.el-upload--picture-card {
+		width: 31.33%;
+		height: auto;
+		margin: 0 2% 2% 0;
+	}
+	img {
+    vertical-align: middle;
+    }
+</style>
 <style scoped>
 	.el-input,
 	.el-radio-group,
@@ -240,14 +251,5 @@
 		text-align: center;
 		margin-top: 0px;
 		display: block;
-	}
-	.el-upload-list--picture-card .el-upload-list__item,
-	.el-upload--picture-card {
-		width: 31.33%;
-		height: auto;
-		margin: 0 2% 2% 0;
-	}
-	img {
-	vertical-align: middle;
 	}
 </style>

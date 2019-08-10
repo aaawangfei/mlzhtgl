@@ -10,38 +10,25 @@
 		</button>
 			<el-button type="text" style="margin-left: 10px;float: right;color:#606266" @click="handleCreate">	
 			<i class="el-icon-plus"></i>
-			<span>添加banner</span>
+			<span>添加</span>
 		</el-button>
 		</div>
 		<el-table v-loading="listLoading" :data="list" fit highlight-current-row class="tableWidth">
 			<el-table-column label="序号" prop="key" align="center">
 			</el-table-column>
-			<el-table-column label="banner名称" prop="bannername" align="center">
+			<el-table-column label="生产厂商名称" prop="Manufacturername" align="center">
 			</el-table-column>
-			<el-table-column label="位置描述" prop="Podescription" align="center">
+			<el-table-column label="联系人" prop="people" align="center">
 			</el-table-column>
-			<el-table-column label="轮播间隔时间（秒）" prop="banners" width="150" align="center">
+			<el-table-column label="联系电话" prop="phone" width="150" align="center">
 			</el-table-column>
-			<el-table-column label="关联位置" prop="Relatedposition" align="center">
-			</el-table-column>
-			<el-table-column label="栏目图片" prop="img" align="center">
-				<template slot-scope="scope">
-					<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
-				</template>
-			</el-table-column>
-			<el-table-column label="状态" prop="status" align="center">
+			<el-table-column label="创建时间" prop="Creationtime" align="center">
 			</el-table-column>
 			<el-table-column fixed="right" label="操作" align="center" width="218">
 				<template slot-scope="scope">
 					<span @click="handleUpdate(scope.row)" class="pointer">
 			          		<el-tag>编辑</el-tag>
-			          	</span>
-					<span @click="dialogVisible = true" class="pointer">
-					  		<el-tag>禁用</el-tag>
-					  	</span>
-					<span @click="handleModifyStatus(scope.row)" class="pointer">
-					  		<el-tag>设置</el-tag>
-					  	</span>		
+			          	</span>	
 					<span @click="handleDelete(scope.row)" class="pointer">
 			                <el-tag type="danger">删除</el-tag>
 				       </span>
@@ -54,20 +41,14 @@
 
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
 			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-				<el-form-item label="banner名称" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入banner名称" />
+				<el-form-item label="生产厂商名称" prop="name">
+					<el-input v-model="temp.name" placeholder="请输入生产厂商名称" />
 				</el-form-item>
-				<el-form-item label="位置描述" prop="desc">
-					<el-input type="textarea" v-model="temp.desc" placeholder='请输入位置描述'></el-input>
+				<el-form-item label="联系人" prop="desc">
+					<el-input v-model="temp.desc" placeholder='请输入联系人'/>
 				</el-form-item>
-				<el-form-item label="轮播间隔时间" prop="name" width="100">
-					<el-input style="width:30%" v-model="temp.name" placeholder='请输入'></el-input><span style="margin-left: 5px;">秒</span>
-				</el-form-item>
-				<el-form-item label="关联" prop="Brand">
-					<el-radio-group v-model="temp.Brand">
-						<el-radio :label="0">首页</el-radio>
-						<el-radio :label="1">栏目</el-radio>
-					</el-radio-group>
+				<el-form-item label="联系电话" prop="name" width="100">
+					<el-input v-model="temp.name" placeholder='请输入联系电话'/>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -77,7 +58,7 @@
 		</el-dialog>
 		<!-- 禁用提示框 -->
 		<el-dialog title="提示" :visible.sync="deleteDialogVisible" width="30%">
-			<span>确定要删除该卡片类型吗？</span>
+			<span>确定要删除吗？</span>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="forbiddenDialogVisible = false">取 消</el-button>
 				<el-button type="primary" @click="deleteBtn">确 定</el-button>
@@ -116,19 +97,8 @@
 				dialogFormVisible: false,
 				deleteDialogVisible: false,
 				listLoading: true,
-				options: [{
-				  value: '状态',
-				  label: '状态'
-				  }, {
-				  value: '选项2',
-				  label: '启用中'
-				  }, {
-				  value: '选项3',
-				  label: '禁用中'
-				  }],
-				  value: '状态',
 				temp: {
-					Brand:0,
+					
 				},
 			}
 		},
@@ -144,21 +114,17 @@
 				this.list = [];
 				this.list = [{
 					    key:'1',
-						bannername: '首页轮播图',
-						Podescription: '轮播图位置',
-						banners: '1',
-						Relatedposition:'栏目名称',
-						img:'',
-						status:'启用中'
+						Manufacturername: '阿迪',
+						people: '王大难',
+						phone: '135698745632',
+						Creationtime:'20190725 10:20:00',
 					},
 					{
-						    key:'2',
-							bannername: '首页轮播图',
-							Podescription: '轮播图位置',
-							banners: '2',
-							Relatedposition:'栏目名称',
-							img:'',
-							status:'禁用中'
+						key:'2',
+						Manufacturername: 'PUMA',
+						people: '王大难',
+						phone: '135698745632',
+						Creationtime:'20190725 10:20:00',
 					}];
 				this.total = 2;
 			},
@@ -190,14 +156,6 @@
 					if(valid) {
 
 					}
-				});
-			},
-			//设置
-			handleModifyStatus(row) {
-				sessionStorage.formInit = row.id;
-				this.$router.push({
-					id: sessionStorage.formInit,
-					path: '/columnManage/setting'
 				});
 			},
 			handleDelete(row) {
