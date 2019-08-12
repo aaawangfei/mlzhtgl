@@ -45,7 +45,7 @@
 			          		<el-tag>编辑</el-tag>
 			          	</span>
 					<span @click="dialogVisible = true" class="pointer">
-					  		<el-tag>禁用</el-tag>
+					  		<el-tag type="success">禁用</el-tag>
 					  	</span>
 					<span @click="handleModifyStatus(scope.row)" class="pointer">
 					  		<el-tag>设置</el-tag>

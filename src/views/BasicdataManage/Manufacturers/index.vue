@@ -64,13 +64,6 @@
 				<el-button type="primary" @click="deleteBtn">确 定</el-button>
 			</span>
 		</el-dialog>
-		<el-dialog title="禁用" :visible.sync="dialogVisible" width="30%">
-			<span>是否禁用banner?</span>
-			<span slot="footer" class="dialog-footer">
-		   <el-button @click="dialogVisible = false">取 消</el-button>
-		   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-		  </span>
-		</el-dialog>
 	</div>
 </template>
 <script>

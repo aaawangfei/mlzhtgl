@@ -75,7 +75,7 @@
 						<el-button type="primary" @click="deleteBtn()">确 定</el-button>
 					</span>
 		</el-dialog>
-		<el-dialog title="卡片挂失" :visible.sync="dialogVisible" width="30%">
+		<el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
 			<span>是否批量移除?</span>
 			<span slot="footer" class="dialog-footer">
 		   <el-button @click="dialogVisible = false">取 消</el-button>

@@ -1,88 +1,196 @@
 <template>
 	<div class="app-container">
-		<div class="filter-container">
-			<div class="filter-item el-input el-input--medium" style="width: 200px;">
-				<el-input type="text" v-model="search" autocomplete="off" placeholder="请输入搜索内容" clearable></el-input>
-			</div>
-			<button type="button" @click="searchClick()" class="el-button filter-item el-button--primary el-button--medium">
-			<i class="el-icon-search"></i>
-			<span>搜索</span>
-		</button>
-			<el-button type="text" style="margin-left: 10px;float: right;color:#606266" @click="handleCreate">	
-			<i class="el-icon-plus"></i>
-			<span>添加</span>
-		</el-button>
-		</div>
-		<el-table v-loading="listLoading" :data="list" fit highlight-current-row class="tableWidth">
-			<el-table-column label="序号" prop="key" align="center">
-			</el-table-column>
-			<el-table-column label="供货商名称" prop="suppliername" align="center">
-			</el-table-column>
-			<el-table-column label="联系人" prop="people" align="center">
-			</el-table-column>
-			<el-table-column label="联系电话" prop="phone" align="center">
-			</el-table-column>
-			<el-table-column label="营业执照" prop="license" align="center">
-				<template slot-scope="scope">
-					<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
-				</template>
-			</el-table-column>
-			<el-table-column label="营业执照有效期" prop="validity" align="center" width="120">
-			</el-table-column>
-			<el-table-column label="创建时间" prop="Creationtime" align="center" width="150">
-			</el-table-column>
-			<el-table-column fixed="right" label="操作" align="center">
-				<template slot-scope="scope">
-					<span @click="handleUpdate(scope.row)" class="pointer">
-			          		<el-tag>编辑</el-tag>
-			          	</span>	
-					<span @click="handleDelete(scope.row)" class="pointer">
-			                <el-tag type="danger">删除</el-tag>
-				       </span>
-				</template>
-
-			</el-table-column>
-		</el-table>
-
-		<pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
-				<el-form-item label="供货商名称" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入供货商名称" />
-				</el-form-item>
-				<el-form-item label="联系人" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入联系人" />
-				</el-form-item>
-				<el-form-item label="联系电话" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入联系电话" />
-				</el-form-item>
-				<el-form-item label="图片" prop="coverImage" ref="uploadElement">
-					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 306px;" :limit="1" :on-remove="handleRemove">
-						<i class="el-icon-plus"></i>
-					</el-upload>
-					<el-dialog :visible.sync="dialogVisible">
-						<img width="30%" :src="temp.coverImage" alt="">
-					</el-dialog>
-				</el-form-item>
-				<el-form-item label="营业执照有效期" prop="name">
-					<el-date-picker style="width:300px" v-model="temp.value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-                    </el-date-picker>
+		<el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="全部" name="first">
+				<el-table v-loading="listLoading" :data="lista" fit highlight-current-row class="tableWidth">
+					<el-table-column label="序号" prop="key" align="center">
+					</el-table-column>
+					<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="企业名称" prop="Corpname" align="center">
+					</el-table-column>
+					<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+					</el-table-column>
+					<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
+						<template slot-scope="scope">
+							<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
+						</template>
+					</el-table-column>
+					<el-table-column label="状态" prop="status" align="center">
+					</el-table-column>
+					<el-table-column fixed="right" label="操作" align="center" width="218">
+						<template slot-scope="scope">
+							<span @click="dialogFormVisibleb = true" class="pointer">
+					          		<el-tag>审核</el-tag>
+					          	</span>	
+							<span @click="dialogFormVisiblea = true" class="pointer">
+					            <el-tag type="danger">详情</el-tag>
+						       </span>
+						</template>
+				
+					</el-table-column>
+				</el-table>
+			    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getLista" />
+			</el-tab-pane>
+            <el-tab-pane label="待审核" name="second">
+				<el-table v-loading="listLoading" :data="listb" fit highlight-current-row class="tableWidth">
+					<el-table-column label="序号" prop="key" align="center">
+					</el-table-column>
+					<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="企业名称" prop="Corpname" align="center">
+					</el-table-column>
+					<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+					</el-table-column>
+					<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
+						<template slot-scope="scope">
+							<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
+						</template>
+					</el-table-column>
+					<el-table-column label="申请时间" prop="time" width="150" align="center">
+					</el-table-column>
+					<el-table-column label="状态" prop="status" align="center">
+					</el-table-column>
+					<el-table-column fixed="right" label="操作" align="center" width="218">
+						<template slot-scope="scope">
+							<span @click="dialogFormVisibleb = true" class="pointer">
+							  		<el-tag>审核</el-tag>
+							  	</span>
+						</template>
+				
+					</el-table-column>
+				</el-table>
+				<pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getListb" />				
+			</el-tab-pane>
+            <el-tab-pane label="已拒绝" name="third">
+            		<el-table v-loading="listLoading" :data="listc" fit highlight-current-row class="tableWidth">
+            			<el-table-column label="序号" prop="key" align="center">
+            			</el-table-column>
+            			<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+            			</el-table-column>
+            			<el-table-column label="企业名称" prop="Corpname" align="center">
+            			</el-table-column>
+            			<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+            			</el-table-column>
+            			<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
+            				<template slot-scope="scope">
+            					<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
+            				</template>
+            			</el-table-column>
+            			<el-table-column label="审核人" prop="reviewer" align="center">
+            			</el-table-column>
+            			<el-table-column label="拒绝时间" prop="time" width="150" align="center">
+            			</el-table-column>
+            			<el-table-column label="状态" prop="status" align="center">
+            			</el-table-column>
+            			<el-table-column fixed="right" label="操作" align="center" width="218">
+            				<template slot-scope="scope">
+            					<span @click="dialogFormVisiblea = true" class="pointer">
+            					    <el-tag type="danger">详情</el-tag>
+            					   </span>
+            				</template>
+            		
+            			</el-table-column>
+            		</el-table>
+            		<pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getListb" />				
+            	</el-tab-pane>
+            
+		</el-tabs>
+		<!-- 详情 -->
+		<el-dialog title="详情" :visible.sync="dialogFormVisiblea">
+          <el-form ref="dataForm" :model="formInline" label-position="left" label-width="100px" style="margin-left:50px;">
+          	<el-row>
+          		<el-col :span="10">
+          			<el-form-item label="拒绝原因：">
+          				{{formInline.floorname}}
+          			</el-form-item>
+          		</el-col>
+          		<el-col :span="12">
+          			<el-form-item label="拒绝时间：">
+          				{{formInline.floorstyle}}
+          			</el-form-item>
+          		</el-col>
+          		<el-col :span="10">
+          			<el-form-item label="企业账号：">
+          				{{formInline.floordescription}}
+          			</el-form-item>
+          		</el-col>
+          		<el-col :span="12">
+          			<el-form-item label="审核人：">
+          				{{formInline.roll}}
+          			</el-form-item>
+          		</el-col>
+          		<el-col :span="24">
+          			<el-form-item label="企业名称：">
+          				{{formInline.sorting}}
+          			</el-form-item>
+          		</el-col>
+          		<el-col :span="24">
+          			<el-form-item label="营业范围：" style="width:100%;word-wrap:break-word;height: auto;">
+          				{{formInline.Brand}}
+          			</el-form-item>
+          		</el-col>
+          		<el-col :span="24">
+          			<el-form-item label="营业执照：">
+          				<img style="width:100px;height:100px;border-radius: 4px;" :src="photo" alt="" />
+          			</el-form-item>
+          		</el-col>
+          	</el-row>
+          </el-form>
+        </el-dialog>
+		<!-- 审核 -->
+		<el-dialog title="审核" :visible.sync="dialogFormVisibleb">
+		    <el-form ref="dataForm" :model="formInline" label-position="left" label-width="100px" style="margin-left:50px;">
+		         <el-row>	
+		         	<el-col :span="10">
+		         		<el-form-item label="企业账号：">
+		         			{{formInline.floordescription}}
+		         		</el-form-item>
+		         	</el-col>
+					<el-col :span="12">
+						<el-form-item label="申请时间：">
+							{{formInline.floorstyle}}
+						</el-form-item>
+					</el-col>
+		         	<el-col :span="24">
+		         		<el-form-item label="企业名称：">
+		         			{{formInline.sorting}}
+		         		</el-form-item>
+		         	</el-col>
+		         	<el-col :span="24">
+		         		<el-form-item label="营业范围：" style="width:100%;word-wrap:break-word;height: auto;">
+		         			{{formInline.Brand}}
+		         		</el-form-item>
+		         	</el-col>
+		         	<el-col :span="24">
+		         		<el-form-item label="营业执照：">
+		         			<img style="width:100px;height:100px;border-radius: 4px;" :src="photo" alt="" />
+		         		</el-form-item>
+		         	</el-col>
+		         </el-row>
+		    </el-form>
+		        <div slot="footer" class="dialog-footer">
+		          <el-button type="primary" @click="dialogVisible = true">通过</el-button>
+		          <el-button @click="dialogFormVisible = true">拒绝</el-button>
+		  </div>
+		</el-dialog>
+		<el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+				<span>企业申请信息是否完整正确，确认通过审核吗?</span>
+				<span slot="footer" class="dialog-footer">
+			   <el-button @click="dialogVisible = false">取 消</el-button>
+			   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+			  </span>
+		</el-dialog>
+		<el-dialog title="提示" :visible.sync="dialogFormVisible">
+			<el-form ref="dataForm" :rules="rules" :model="formInline" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+				<el-form-item label="拒绝原因" prop="reason">
+					<el-input type="textarea" v-model="formInline.reason" placeholder='请输入拒绝原因'></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="dialogFormVisible = false">取消</el-button>
-				<el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">确定</el-button>
+				<el-button type="primary" @click="dialogFormVisible = false">确定</el-button>
 			</div>
-		</el-dialog>
-		<!-- 禁用提示框 -->
-		<el-dialog title="提示" :visible.sync="deleteDialogVisible" width="30%">
-			<span>确定要删除吗？</span>
-			<span slot="footer" class="dialog-footer">
-				<el-button @click="forbiddenDialogVisible = false">取 消</el-button>
-				<el-button type="primary" @click="deleteBtn">确 定</el-button>
-			</span>
 		</el-dialog>
 	</div>
 </template>
@@ -95,7 +203,9 @@
 		data() {
 			return {
 				search: "",
-				list: null,
+				activeName: 'first',
+				lista: null,
+				listb: null,
 				total: 0,
 				listQuery: {
 					page: 1,
@@ -106,147 +216,117 @@
 					create: '添加'
 				},
 				dialogStatus: "",
-				fileList: [],
+				dialogFormVisiblea: false,
 				dialogFormVisible: false,
-				deleteDialogVisible: false,
+				dialogVisible: false,
+				dialogFormVisibleb: false,
 				listLoading: true,
-				options: [{
-				  value: '状态',
-				  label: '状态'
-				  }, {
-				  value: '选项2',
-				  label: '启用中'
-				  }, {
-				  value: '选项3',
-				  label: '禁用中'
-				  }],
-				  value: '状态',
-				temp: {
-					coverImage:'',
-					photourl: [],
-					value1:''
+				photo:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg',				
+				formInline: {
+					floorname:'',
+					reason:''
+				},
+				rules:{
+					reason: [{
+							required: true,
+							message: '拒绝原因是必填项',
+							trigger: 'blur'
+							}]
 				},
 			}
 		},
 		created() {
-			this.getList();
+			this.getLista();
+			this.getListb();
+			this.getListc();
+			this.formInline = {
+				floorname: "XXXXXX",
+				floorstyle:'2017-10-10 10:20:00',
+				floordescription:'13213542321543',
+				roll:"黎明",
+				sorting:"西安有限公司",
+				Brand:'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+			}
 		},
 		methods: {
 			searchClick() {
 
 			},
-			getList() {
+			handleClick(tab, event) {
+             console.log(tab, event);
+            },
+			getLista() {
 				this.listLoading = false;
-				this.list = [];
-				this.list = [{
+				this.lista = [];
+				this.lista = [{
 					    key:'1',
-						suppliername: '阿迪',
-						people: '王大难',
-						phone: '135698745632',
-						license:'',
-						validity:'2年',
-						Creationtime:'20190725 10:20:00'
+					    Corpaccount: '13659756423',
+					    Corpname:'有小雨',
+					    businessscope: '营业范围介绍',
+					    businesslicense: '',
+					    status:'待审核'
 					},
 					{
 						key:'2',
-						suppliername: '耐克',
-						people: '张嘉译',
-						phone: '135698745632',
-						license:'',
-						validity:'2年',
-						Creationtime:'20190725 10:20:00'
+						Corpaccount: '13659756423',
+						Corpname:'小白',
+						businessscope: '营业范围介绍',
+						businesslicense: '',
+						status:'已拒绝'
 					}];
 				this.total = 2;
 			},
-			handleCreate() {
-				this.temp = {};
-				this.dialogStatus = 'create'
-				this.dialogFormVisible = true
-				this.$nextTick(() => {
-					this.$refs['dataForm'].clearValidate()
-				})
+			getListb() {
+				this.listLoading = false;
+				this.listb = [];
+				this.listb = [{
+					    key:'1',
+						Corpaccount: '13659756423',
+						Corpname:'有小雨',
+						businessscope: '营业范围介绍',
+						businesslicense: '',
+						time:'20190725 10:20:00',
+						status:'待审核'
+					},
+					{
+						key:'1',
+						Corpaccount: '13659756423',
+						Corpname:'有小雨',
+						businessscope: '营业范围介绍',
+						businesslicense: '',
+						time:'20190725 10:20:00',
+						status:'待审核'
+					}];
+				this.total = 2;
 			},
-			createData() {
-				this.$refs['dataForm'].validate((valid) => {
-					if(valid) {
-
-					}
-				});
-			},
-			handleUpdate(row) {
-				this.temp = Object.assign({}, row)
-				this.dialogStatus = 'update';
-				this.dialogFormVisible = true
-				this.$nextTick(() => {
-					this.$refs['dataForm'].clearValidate()
-				})
-			},
-			updateData() {
-				this.$refs['dataForm'].validate((valid) => {
-					if(valid) {
-
-					}
-				});
-			},
-			handleDelete(row) {
-				this.deleteDialogVisible = true;
-			},
-			deleteBtn() {
-				this.deleteDialogVisible = false;
-			},
-			handleResp(res) {
-				this.ruleForm.photourl.push(res.data);
-			
-			},
-			handlechange(file, fileList) {
-				this.ruleForm.coverImage = fileList;
-				if(fileList) {
-					this.$refs['uploadElement'].clearValidate();
-				}
-			},
-			beforeAvatarUpload(file) {
-				var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
-				const extension = testmsg === 'jpg'
-				const extension2 = testmsg === 'png'
-				const isLt2M = file.size / 1024 / 1024 < 10
-				if(!extension && !extension2) {
-					this.$message({
-						message: '上传文件只能是 jpg、png格式!',
-						type: 'warning'
-					});
-				}
-				if(!isLt2M) {
-					this.$message({
-						message: '上传文件大小不能超过 10MB!',
-						type: 'warning'
-					});
-				}
-				return extension || extension2 && isLt2M
-			},
-			exceed(files, fileList) {
-				this.$message("图片上传已超出限制个数!");
-			},
-			handleRemove(file, fileList) {
-				this.ruleForm.photourl = _.without(this.ruleForm.photourl, file.response.data);
-			
+			getListc() {
+				this.listLoading = false;
+				this.listc = [];
+				this.listc = [{
+					    key:'1',
+						Corpaccount: '13659756423',
+						Corpname:'有小雨',
+						businessscope: '营业范围介绍',
+						businesslicense: '',
+						reviewer:'有小雨',
+						time:'20190725 10:20:00',
+						status:'已拒绝'
+					},
+					{
+						key:'2',
+						Corpaccount: '13659756423',
+						Corpname:'小白',
+						businessscope: '营业范围介绍',
+						businesslicense: '',
+						reviewer:'小白',
+						time:'20190725 10:20:00',
+						status:'已拒绝'
+					}];
+				this.total = 2;
 			},
 		}
 	}
 </script>
-<style>
-	.el-upload-list--picture-card .el-upload-list__item,
-	.el-upload--picture-card {
-		width: 31.33%;
-		height: auto;
-		margin: 0 2% 2% 0;
-	}
-	img {
-    vertical-align: middle;
-    }
-	.el-range-editor .el-range-separator{
-		padding: 0;
-	}
-</style>
 <style scoped>
     .pagination-container {
 		text-align: center;
