@@ -22,17 +22,17 @@
 				</el-form-item>
 				<el-form-item label="栏目图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="https://jsonplaceholder.typicode.com/posts/" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
-						<img width="30%" :src="organForm.coverImage" alt="">
+						<img width="30%" :src="coverImage" alt="">
 					</el-dialog>
 				</el-form-item>
 			</div>
 			<div v-if="organForm.displayMode===1">
-				<el-form-item label="上级栏目" prop="higcolumn">
-					<el-select filterable v-model="organForm.higcolumn" placeholder="请选择上级栏目">
+				<el-form-item label="上级栏目" prop="type">
+					<el-select filterable v-model="organForm.type" placeholder="请选择上级栏目">
 						<el-option v-for="item in optionsa" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
@@ -51,11 +51,11 @@
 				</el-form-item>
 				<el-form-item label="栏目图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="https://jsonplaceholder.typicode.com/posts/" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
-						<img width="30%" :src="organForm.coverImage" alt="">
+						<img width="30%" :src="coverImage" alt="">
 					</el-dialog>
 				</el-form-item>
 				<el-form-item label="栏目展示" prop="show">
@@ -113,21 +113,20 @@
 				organForm: {
 					name: '',
 					typeId: '',
-					coverImage: '',
 					desc: '',
 					superior: '',
-					higcolumn:'',
 					displayMode: 0,
+					photourl: [],
 				},
 				organType: [],
 				rules: organRules,
 				data: [],
+				coverImage: '',
 				currentSequence: '',
 				pid: '',
 				parentId: '',
 				dialogVisible:false,
 				fileList: [],
-				photourl: [],
 				treeArrKey: '',
 				defaultProps: {
 					children: 'children',
@@ -162,41 +161,44 @@
 		},
 		methods: {
 			handleResp(res) {
-				this.ruleForm.photourl.push(res.data);
-			
-			},
-			handlechange(file, fileList) {
-				this.ruleForm.coverImage = fileList;
-				if(fileList) {
-					this.$refs['uploadElement'].clearValidate();
-				}
-			},
-			beforeAvatarUpload(file) {
-				var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
-				const extension = testmsg === 'jpg'
-				const extension2 = testmsg === 'png'
-				const isLt2M = file.size / 1024 / 1024 < 10
-				if(!extension && !extension2) {
-					this.$message({
-						message: '上传文件只能是 jpg、png格式!',
-						type: 'warning'
-					});
-				}
-				if(!isLt2M) {
-					this.$message({
-						message: '上传文件大小不能超过 10MB!',
-						type: 'warning'
-					});
-				}
-				return extension || extension2 && isLt2M
-			},
-			exceed(files, fileList) {
-				this.$message("图片上传已超出限制个数!");
-			},
-			handleRemove(file, fileList) {
-				this.ruleForm.photourl = _.without(this.ruleForm.photourl, file.response.data);
-			
-			},
+               this.organForm.photourl.push(res.data);
+   
+        },
+            handlechange(file, fileList) {
+               this.coverImage = fileList;
+                 if(fileList) {
+               this.$refs['uploadElement'].clearValidate();
+        }
+        },
+		    beforeAvatarUpload(file) {
+		    	var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+		    	const extension = testmsg === 'jpg'
+		    	const extension2 = testmsg === 'png'
+		    	const isLt2M = file.size / 1024 / 1024 < 10
+		    	if(!extension && !extension2) {
+		    		this.$message({
+		    			message: '上传文件只能是 jpg、png格式!',
+		    			type: 'warning'
+		    		});
+		    	}
+		    	if(!isLt2M) {
+		    		this.$message({
+		    			message: '上传文件大小不能超过 10MB!',
+		    			type: 'warning'
+		    		});
+		    	}
+		    	return extension || extension2 && isLt2M
+		},
+            handleRemove(file, fileList) {
+               this.organForm.photourl = _.without(this.organForm.photourl, file.response.data);
+        },
+            handlePictureCardPreview(file) {
+               this.coverImage = file.url;
+               this.dialogVisible = true;
+        },
+            exceed(files, fileList) {
+               this.$message("图片上传已超出限制个数!");
+        },
 			formInit() {
 				
 

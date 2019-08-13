@@ -49,7 +49,7 @@
 				</el-form-item>
 				<el-form-item label="品牌LOGO" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 508px;" :limit="1" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="https://jsonplaceholder.typicode.com/posts/" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 508px;" :limit="1" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -109,12 +109,12 @@
 				dialogStatus: "",
 				dialogVisible: false,
 				fileList: [],
-				photourl: [],
+				coverImage:'',
 				dialogFormVisible: false,
 				deleteDialogVisible: false,
 				listLoading: true,
 				temp: {
-					coverImage:0,
+					photourl: [],
 				},
 				rules:{
 					name: [{
@@ -133,40 +133,39 @@
 
 			},
 			handleResp(res) {
-				this.ruleForm.photourl.push(res.data);
-			
+			       this.temp.photourl.push(res.data);
+			   
 			},
-			handlechange(file, fileList) {
-				this.ruleForm.coverImage = fileList;
-				if(fileList) {
-					this.$refs['uploadElement'].clearValidate();
-				}
+			    handlechange(file, fileList) {
+			       this.coverImage = fileList;
+			         if(fileList) {
+			       this.$refs['uploadElement'].clearValidate();
+			}
 			},
-			beforeAvatarUpload(file) {
-				var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
-				const extension = testmsg === 'jpg'
-				const extension2 = testmsg === 'png'
-				const isLt2M = file.size / 1024 / 1024 < 10
-				if(!extension && !extension2) {
-					this.$message({
-						message: '上传文件只能是 jpg、png格式!',
-						type: 'warning'
-					});
-				}
-				if(!isLt2M) {
-					this.$message({
-						message: '上传文件大小不能超过 10MB!',
-						type: 'warning'
-					});
-				}
-				return extension || extension2 && isLt2M
+			    beforeAvatarUpload(file) {
+			    	var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+			    	const extension = testmsg === 'jpg'
+			    	const extension2 = testmsg === 'png'
+			    	const isLt2M = file.size / 1024 / 1024 < 10
+			    	if(!extension && !extension2) {
+			    		this.$message({
+			    			message: '上传文件只能是 jpg、png格式!',
+			    			type: 'warning'
+			    		});
+			    	}
+			    	if(!isLt2M) {
+			    		this.$message({
+			    			message: '上传文件大小不能超过 10MB!',
+			    			type: 'warning'
+			    		});
+			    	}
+			    	return extension || extension2 && isLt2M
 			},
-			exceed(files, fileList) {
-				this.$message("图片上传已超出限制个数!");
+			    handleRemove(file, fileList) {
+			       this.temp.photourl = _.without(this.temp.photourl, file.response.data);
 			},
-			handleRemove(file, fileList) {
-				this.ruleForm.photourl = _.without(this.ruleForm.photourl, file.response.data);
-			
+			    exceed(files, fileList) {
+			       this.$message("图片上传已超出限制个数!");
 			},
 			getList() {
 				this.listLoading = false;
