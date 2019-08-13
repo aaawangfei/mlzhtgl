@@ -1,19 +1,19 @@
 <template>
 	<div class="app-container">
 		<div class="filter-container">
-			<el-form :inline="true" :model="formInline" class="demo-form-inline">
+			<el-form :inline="true" class="demo-form-inline">
 				<label style="color:#303133;margin-right: 30px;">筛选搜索</label>
 				<label style="color:#606266;">商品编码:</label>
 				<div class="filter-item el-input el-input--medium" style="width: 150px;margin-bottom: 20px;margin-top: 20px;">
-					<el-input type="text" clearable v-model="content" autocomplete="off" placeholder="请输入商品编码"></el-input>
+					<el-input type="text" clearable autocomplete="off" placeholder="请输入商品编码"></el-input>
 				</div>
 				<label style="color:#606266;margin-left: 30px;">商品名称:</label>
 				<div class="filter-item el-input el-input--medium" style="width: 150px;margin-bottom: 20px;margin-top: 20px;">
-					<el-input type="text" clearable v-model="content" autocomplete="off" placeholder="请输入商品名称"></el-input>
+					<el-input type="text" clearable autocomplete="off" placeholder="请输入商品名称"></el-input>
 				</div>
 				<label style="color:#606266;margin-left: 30px;">商品规格:</label>
 				<div class="filter-item el-input el-input--medium" style="width: 150px;margin-bottom: 20px;margin-top: 20px;">
-					<el-input type="text" clearable v-model="content" autocomplete="off" placeholder="请输入商品规格"></el-input>
+					<el-input type="text" clearable  autocomplete="off" placeholder="请输入商品规格"></el-input>
 				</div>
 				<el-button type="primary" icon="el-icon-search" @click="searchContent()">
 					搜索

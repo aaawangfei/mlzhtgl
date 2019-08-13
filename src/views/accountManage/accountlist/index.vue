@@ -112,15 +112,15 @@
 		</el-dialog>
 		<!-- 添加个人账户 -->
 		<el-dialog title="添加账户" :visible.sync="dialogFormVisible">
-          <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-          <el-form-item label="个人账号" :label-width="formLabelWidth">
-             <el-input v-model="temp.name" autocomplete="off" placeholder="请输入个人账号"></el-input>
+          <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
+          <el-form-item label="个人账号" prop="Personalacc">
+             <el-input v-model="temp.Personalacc" autocomplete="off" placeholder="请输入个人账号"></el-input>
           </el-form-item>
-		  <el-form-item label="个人账户名称" :label-width="formLabelWidth">
-		     <el-input v-model="temp.name" autocomplete="off" placeholder="请输入个人账户名称"></el-input>
+		  <el-form-item label="个人账户名称" prop="Personname">
+		     <el-input v-model="temp.Personname" autocomplete="off" placeholder="请输入个人账户名称"></el-input>
 		  </el-form-item>
-		  <el-form-item label="账户密码" :label-width="formLabelWidth">
-		     <el-input v-model="temp.name" autocomplete="off" placeholder="请输入账户密码"></el-input>
+		  <el-form-item label="账户密码" prop="password">
+		     <el-input v-model="temp.password" autocomplete="off" placeholder="请输入账户密码"></el-input>
 		  </el-form-item>
           </el-form>
         <div slot="footer" class="dialog-footer">
@@ -137,8 +137,8 @@
 				 <el-form-item label="企业名称" prop="name">
 				 	<el-input v-model="temp.name" placeholder="请输入企业名称" />
 				 </el-form-item>
-				 <el-form-item label="账户密码" prop="name">
-				 	<el-input v-model="temp.name" placeholder="请输入账户密码" />
+				 <el-form-item label="账户密码" prop="password">
+				 	<el-input v-model="temp.password" placeholder="请输入账户密码" />
 				 </el-form-item>
 				 <el-form-item label="营业范围" prop="name">
 				 	<el-input type="textarea" v-model="temp.name" placeholder="请输入营业范围" />
@@ -161,8 +161,8 @@
 		<!-- 个人账户重置密码 -->
 		<el-dialog title="重置密码" :visible.sync="dialogFormVisibleb">
 		    <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-		         <el-form-item label="新密码" prop="name">
-		         	<el-input v-model="temp.name" placeholder="请输入新密码" />
+		         <el-form-item label="新密码" prop="newpassword">
+		         	<el-input v-model="temp.newpassword" placeholder="请输入新密码" />
 		         </el-form-item>
 		    </el-form>
 		        <div slot="footer" class="dialog-footer">
@@ -173,8 +173,8 @@
 		<!-- 企业账户重置密码 -->
 		<el-dialog title="重置密码" :visible.sync="dialogFormVisiblec">
 		    <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-		         <el-form-item label="新密码" prop="name">
-		         	<el-input v-model="temp.name" placeholder="请输入新密码" />
+		         <el-form-item label="新密码" prop="newpassword">
+		         	<el-input v-model="temp.newpassword" placeholder="请输入新密码" />
 		         </el-form-item>
 		    </el-form>
 		        <div slot="footer" class="dialog-footer">
@@ -217,6 +217,18 @@
 				listLoading: true,
 				temp: {
 					coverImage:0,
+				},
+				rules:{
+					newpassword: [{
+							required: true,
+							message: '新密码是必填项',
+							trigger: 'blur'
+							}],
+					password: [{
+							required: true,
+							message: '账户密码是必填项',
+							trigger: 'blur'
+							}]		
 				},
 			}
 		},

@@ -55,7 +55,7 @@
 								<span @click="handlegoodsmain(scope.row)">商品维护</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
-								<span>禁用</span>
+								<span @click="dialogVisible = true">禁用</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
 								<span @click="viewCardList(scope.row)">详情</span>
@@ -77,8 +77,8 @@
 						<el-button type="primary" @click="deleteBtn()">确 定</el-button>
 					</span>
 		</el-dialog>
-		<el-dialog title="卡片挂失" :visible.sync="dialogVisible" width="30%">
-			<span>是否挂失该卡?</span>
+		<el-dialog title="禁用" :visible.sync="dialogVisible" width="30%">
+			<span>是否是否禁用楼层?</span>
 			<span slot="footer" class="dialog-footer">
 		   <el-button @click="dialogVisible = false">取 消</el-button>
 		   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -242,7 +242,7 @@
 				sessionStorage.formInit = row.id;
 				this.$router.push({
 					id: sessionStorage.formInit,
-					path: '/columnManage/updatecolumnList'
+					path: '/columnManage/updatefloor'
 				});
 			},
 			//商品维护

@@ -57,7 +57,7 @@
 					</el-dialog>
 				</el-form-item>
 				<el-form-item style="width:600px" label="生产厂商列表" prop="desc">
-				<el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入生产厂商名称" v-model="value" :data="data"></el-transfer>
+				<el-transfer filterable filter-placeholder="请输入生产厂商名称" v-model="value" :data="data"></el-transfer>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -115,6 +115,13 @@
 				listLoading: true,
 				temp: {
 					coverImage:0,
+				},
+				rules:{
+					name: [{
+							required: true,
+							message: '品牌名称是必填项',
+							trigger: 'blur'
+							}],		
 				},
 			}
 		},

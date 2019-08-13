@@ -48,25 +48,25 @@
 
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
 			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
-				<el-form-item label="供货商名称" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入供货商名称" />
+				<el-form-item label="供货商名称" prop="suppliername">
+					<el-input v-model="temp.suppliername" placeholder="请输入供货商名称" />
 				</el-form-item>
-				<el-form-item label="联系人" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入联系人" />
+				<el-form-item label="联系人" prop="people">
+					<el-input v-model="temp.people" placeholder="请输入联系人" />
 				</el-form-item>
-				<el-form-item label="联系电话" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入联系电话" />
+				<el-form-item label="联系电话" prop="phone">
+					<el-input v-model="temp.phone" placeholder="请输入联系电话" />
 				</el-form-item>
 				<el-form-item label="图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 306px;" :limit="1" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 306px;" :limit="1" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
 						<img width="30%" :src="temp.coverImage" alt="">
 					</el-dialog>
 				</el-form-item>
-				<el-form-item label="营业执照有效期" prop="name">
+				<el-form-item label="营业执照有效期" prop="validity">
 					<el-date-picker style="width:300px" v-model="temp.value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
                     </el-date-picker>
 				</el-form-item>
@@ -108,8 +108,10 @@
 				dialogStatus: "",
 				fileList: [],
 				dialogFormVisible: false,
+				dialogVisible:false,
 				deleteDialogVisible: false,
 				listLoading: true,
+				coverImage:'',
 				options: [{
 				  value: '状态',
 				  label: '状态'
@@ -122,9 +124,15 @@
 				  }],
 				  value: '状态',
 				temp: {
-					coverImage:'',
 					photourl: [],
 					value1:''
+				},
+				rules:{
+					suppliername: [{
+							required: true,
+							message: '供货商名称是必填项',
+							trigger: 'blur'
+							}],		
 				},
 			}
 		},

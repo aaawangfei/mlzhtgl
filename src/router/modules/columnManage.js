@@ -65,6 +65,13 @@ const columnRouter = {
 		  component: () => import('@/views/columnManage/addfloor'),
 		},
 		{
+		  path: 'updatefloor',
+		  name: 'updatefloor',
+		  hidden: true ,
+		  meta: { title: '修改楼层',noCache: true },
+		  component: () => import('@/views/columnManage/updatefloor'),
+		},
+		{
 		  path: 'Associatedgoods',
 		  name:'Associatedgoods',
 			hidden: true ,

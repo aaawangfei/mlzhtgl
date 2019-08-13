@@ -9,20 +9,20 @@
 			</el-form-item>
 			<div v-if="organForm.displayMode===0">
 				<el-form-item label="楼层名称" prop="name">
-					<el-input v-model="organForm.name" placeholder='请输入栏目名称'></el-input>
+					<el-input v-model="organForm.name" placeholder='请输入楼层名称'></el-input>
 				</el-form-item>
 				<el-form-item label="楼层描述" prop="desc">
-					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入栏目描述'></el-input>
+					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入楼层描述'></el-input>
 				</el-form-item>
 				<el-form-item label="楼层排序" prop="type">
-					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序" @change="typeChange">
+					<el-select filterable v-model="organForm.type" placeholder="请选择楼层排序">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="楼层图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -61,27 +61,27 @@
 				</el-form-item>
 			</div>
 			<div v-if="organForm.displayMode===1">
-				<el-form-item label="上级楼层" prop="type">
-					<el-select filterable v-model="organForm.type" placeholder="请选择上级栏目" @change="typeChange">
+				<el-form-item label="上级楼层" prop="higfloors">
+					<el-select filterable v-model="organForm.higfloors" placeholder="请选择上级楼层">
 						<el-option v-for="item in optionsa" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="楼层名称" prop="name">
-					<el-input v-model="organForm.name" placeholder='请输入栏目名称'></el-input>
+					<el-input v-model="organForm.name" placeholder='请输入楼层名称'></el-input>
 				</el-form-item>
 				<el-form-item label="楼层描述" prop="desc">
-					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入栏目描述'></el-input>
+					<el-input type="textarea" v-model="organForm.desc" placeholder='请输入楼层描述'></el-input>
 				</el-form-item>
 				<el-form-item label="楼层排序" prop="type">
-					<el-select filterable v-model="organForm.type" placeholder="请选择栏目排序" @change="typeChange">
+					<el-select filterable v-model="organForm.type" placeholder="请选择楼层排序">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="楼层图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 81.5%;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -107,7 +107,7 @@
 	const organRules = {
 		name: [{
 			required: true,
-			message: '请填写组织名称',
+			message: '请填写楼层名称',
 			trigger: 'blur'
 		}, {
 			min: 2,
@@ -118,25 +118,15 @@
 			validator: validateInput,
 			trigger: 'blur'
 		}],
-		typeId: [{
-			required: true,
-			message: '请选择组织类型',
-			trigger: 'change'
-		}],
 		desc: [{
 			required: true,
-			message: '请填写职责描述',
+			message: '请填写楼层描述',
 			trigger: 'blur'
 		}, {
 			min: 2,
 			max: 300,
 			message: '长度在 2 到 300 个字符',
 			trigger: 'blur'
-		}],
-		superior: [{
-			required: true,
-			message: '请选择上级组织',
-			trigger: 'change'
 		}],
 	}
 	export default {
@@ -157,6 +147,7 @@
 				data: [],
 				currentSequence: '',
 				pid: '',
+				dialogVisible:false,
 				parentId: '',
 				fileList: [],
 				photourl: [],
@@ -230,32 +221,7 @@
 			
 			},
 			formInit() {
-				//组织类型初始化
-				this.organType = [];
-				getAjax('/api/organizationService/organizationtype/list').then(data => {
-					if(data.code == '0') {
-						data.data.forEach(val => {
-							this.organType.push({
-								key: val.typeName,
-								typeId: val.id
-							})
-
-						})
-					}
-				});
-
-				var param = {
-					type: '2',
-					id: '0'
-				}
-				//上级组织初始化
-				getAjax('/api/organizationService/organization/list', param).then(data => {
-					if(data.code == '0') {
-						this.data = covert(data.data, "0");
-					} else {
-						console.log('数据异常')
-					}
-				});
+		
 			},
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {

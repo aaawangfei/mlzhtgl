@@ -46,7 +46,7 @@
 						</el-button>
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item>
-							<span @click="handleRelatedStatus(scope.row)">关联商品</span>
+							<span>关联商品</span>
 							</el-dropdown-item>
 							<el-dropdown-item>
 								<span @click="handleModifyStatus(scope.row)">编辑栏目</span>

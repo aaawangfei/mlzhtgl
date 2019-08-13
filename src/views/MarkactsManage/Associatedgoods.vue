@@ -5,7 +5,7 @@
 				<span>商品分类</span>
 			</el-col>
 			<el-col :span="22">
-				 <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入关键内容" v-model="value" :data="data"></el-transfer>
+				 <el-transfer filterable filter-placeholder="请输入关键内容" v-model="value" :data="data"></el-transfer>
 			</el-col>
 		</el-row>
   </div>

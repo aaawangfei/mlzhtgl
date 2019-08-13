@@ -40,15 +40,15 @@
 		<pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-				<el-form-item label="生产厂商名称" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入生产厂商名称" />
+			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
+				<el-form-item label="生产厂商名称" prop="Manufacturername">
+					<el-input v-model="temp.Manufacturername" placeholder="请输入生产厂商名称" />
 				</el-form-item>
-				<el-form-item label="联系人" prop="desc">
-					<el-input v-model="temp.desc" placeholder='请输入联系人'/>
+				<el-form-item label="联系人" prop="people">
+					<el-input v-model="temp.people" placeholder='请输入联系人'/>
 				</el-form-item>
-				<el-form-item label="联系电话" prop="name" width="100">
-					<el-input v-model="temp.name" placeholder='请输入联系电话'/>
+				<el-form-item label="联系电话" prop="phone" width="100">
+					<el-input v-model="temp.phone" placeholder='请输入联系电话'/>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -92,6 +92,13 @@
 				listLoading: true,
 				temp: {
 					
+				},
+				rules:{
+					Manufacturername: [{
+							required: true,
+							message: '生产厂商名称是必填项',
+							trigger: 'blur'
+							}],		
 				},
 			}
 		},

@@ -62,14 +62,14 @@
 
 		<el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
 			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-				<el-form-item label="banner名称" prop="name">
-					<el-input v-model="temp.name" placeholder="请输入banner名称" />
+				<el-form-item label="banner名称" prop="bannername">
+					<el-input v-model="temp.bannername" placeholder="请输入banner名称" />
 				</el-form-item>
-				<el-form-item label="位置描述" prop="desc">
-					<el-input type="textarea" v-model="temp.desc" placeholder='请输入位置描述'></el-input>
+				<el-form-item label="位置描述" prop="Podescription">
+					<el-input type="textarea" v-model="temp.Podescription" placeholder='请输入位置描述'></el-input>
 				</el-form-item>
-				<el-form-item label="轮播间隔时间" prop="name" width="100">
-					<el-input style="width:30%" v-model="temp.name" placeholder='请输入'></el-input><span style="margin-left: 5px;">秒</span>
+				<el-form-item label="轮播间隔时间" prop="banners" width="100">
+					<el-input style="width:30%" v-model="temp.banners" placeholder='请输入'></el-input><span style="margin-left: 5px;">秒</span>
 				</el-form-item>
 				<el-form-item label="关联" prop="Brand">
 					<el-radio-group v-model="temp.Brand">
@@ -137,6 +137,13 @@
 				  value: '状态',
 				temp: {
 					Brand:0,
+				},
+				rules:{
+					bannername: [{
+							required: true,
+							message: 'banner名称是必填项',
+							trigger: 'blur'
+							}],		
 				},
 			}
 		},

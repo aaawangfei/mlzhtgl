@@ -39,7 +39,7 @@
 			<el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
 				<el-form-item label="图片" prop="coverImage" ref="uploadElement">
 					<div style="margin-top: 2px;" class="el-upload__tip">建议上传图片尺寸:220*140px或者按图片比例上传</div>
-					<el-upload :headers="handleHeader" accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :on-error="handleError" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 306px;" :limit="3" :on-remove="handleRemove">
+					<el-upload accept=".jpg,.png,pdf" action="http://39.97.232.120:9090/organizationService/image/uploadImg" :file-list="fileList" list-type="picture-card" :on-success="handleResp" :on-exceed="exceed" :on-change="handlechange" :beforeUpload="beforeAvatarUpload" name="articleImage" style="width: 306px;" :limit="3" :on-remove="handleRemove">
 						<i class="el-icon-plus"></i>
 					</el-upload>
 					<el-dialog :visible.sync="dialogVisible">
@@ -47,7 +47,7 @@
 					</el-dialog>
 				</el-form-item>
 				<el-form-item label="链接类型" prop="type">
-					<el-select filterable v-model="temp.type" placeholder="请选择链接类型" @change="typeChange">
+					<el-select filterable v-model="temp.type" placeholder="请选择链接类型">
 						<el-option v-for="item in optionsa" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
@@ -92,6 +92,7 @@
 				},
 				dialogStatus: "",
 				dialogFormVisible: false,
+				dialogVisible: false,
 				deleteDialogVisible: false,
 				listLoading: true,
 				fileList: [],
@@ -119,6 +120,13 @@
 				  }],
 				temp: {
 					Brand:0,
+				},
+				rules:{
+					name: [{
+							required: true,
+							message: '链接对象是必填项',
+							trigger: 'blur'
+							}],		
 				},
 			}
 		},
