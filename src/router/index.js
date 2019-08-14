@@ -9,6 +9,7 @@ import Layout from '@/views/layout/Layout'
 /* Router Modules */
 import columnRouter from './modules/columnManage'
 import MarkactsRouter from './modules/MarkactsManage'
+import informRouter from './modules/informManage'
 import accountRouter from './modules/accountManage'
 import BasicdataRouter from './modules/BasicdataManage'
 /** note: sub-menu only appear when children.length>=1
@@ -89,6 +90,7 @@ export const asyncRouterMap = [
   /** When your routing table is too long, you can split it into small modules**/
 	columnRouter,
 	MarkactsRouter,
+	informRouter,
 	accountRouter,
 	BasicdataRouter,
 //   {

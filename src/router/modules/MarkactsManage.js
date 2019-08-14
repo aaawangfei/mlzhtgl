@@ -7,7 +7,7 @@ const MarkactsRouter = {
   name:'Markacts',
   meta:{
     title:'营销活动',
-    icon:'tree'
+    icon:'money'
   },
   children: [
     {

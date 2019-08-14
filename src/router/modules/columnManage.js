@@ -7,7 +7,7 @@ const columnRouter = {
   name:'column',
   meta:{
     title:'栏目管理',
-    icon:'tree'
+    icon:'component'
   },
   children: [
     {
