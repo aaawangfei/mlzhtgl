@@ -1,14 +1,14 @@
 <template>
 	<div class="app-container">
 		<div class="filter-container">
-			<el-select class="filter-item" v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
+			<el-select class="filter-item" v-model="value" placeholder="请选择信息类型">
+		        <el-option
+		          v-for="item in options"
+		          :key="item.value"
+		          :label="item.label"
+		          :value="item.value">
+		        </el-option>
+		    </el-select>
 			<div class="filter-item el-input el-input--medium" style="width: 200px;">
 				<el-input type="text" v-model="search" autocomplete="off" placeholder="请输入搜索内容" clearable></el-input>
 			</div>
@@ -16,9 +16,11 @@
 			<i class="el-icon-search"></i>
 			<span>搜索</span>
 		</button>
-			<el-button type="text" style="margin-left: 10px;float: right;color:#606266" @click="handleCreate">	
-			<i class="el-icon-plus"></i>
-			<span>添加活动</span>
+		<el-button style="float: right;margin-bottom: 20px;" type="primary" @click="searchContent()">
+			批量提交审核
+		</el-button>
+		<el-button style="float: right;margin-bottom: 20px;" type="primary" @click="searchContent()">
+			添加
 		</el-button>
 		</div>
 		<!-- 表格 -->
@@ -132,16 +134,16 @@
 				deleteRow: {},
 				organName: '',
 				options: [{
-                  value: '状态',
-                  label: '状态'
-                  }, {
-                  value: '选项2',
-                  label: '启用中'
-                  }, {
-                  value: '选项3',
-                  label: '禁用中'
-                  }],
-                  value: '状态',
+				  value: '请选择信息类型',
+				  label: '请选择信息类型'
+				  }, {
+				  value: '求租',
+				  label: '求租'
+				  }, {
+				  value: '求购',
+				  label: '求购'
+				  }],
+				  value: '请选择信息类型',
 				  total: 0,
 				  list: null,
 				  listQuery: {

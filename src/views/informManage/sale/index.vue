@@ -26,16 +26,21 @@
 				<el-table v-loading="listLoading" :data="lista" fit highlight-current-row class="tableWidth">
 					<el-table-column label="序号" prop="key" align="center">
 					</el-table-column>
-					<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+					<el-table-column label="信息类型" prop="informtype" align="center" width="120">
 					</el-table-column>
-					<el-table-column label="企业名称" prop="Corpname" align="center">
+					<el-table-column label="设备名称" prop="Devicename" align="center">
 					</el-table-column>
-					<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+					<el-table-column label="数量" prop="num" align="center">
 					</el-table-column>
-					<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
-						<template slot-scope="scope">
-							<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
-						</template>
+					<el-table-column label="分类" prop="classification" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="设备需求地" prop="Equilocation" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="联系人" prop="contact" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="手机号码" prop="phone" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="公司名称" prop="company" align="center" width="150">
 					</el-table-column>
 					<el-table-column label="状态" prop="status" align="center">
 					</el-table-column>
@@ -47,7 +52,7 @@
 							<span @click="dialogFormVisiblea = true" class="pointer">
 					            <el-tag type="danger">详情</el-tag>
 						       </span>
-							<span @click="dialogFormVisiblea = true" class="pointer">
+							<span @click="handleModifyStatus(scope.row)" class="pointer">
 							    <el-tag>编辑</el-tag>
 							   </span>   
 						</template>
@@ -60,18 +65,23 @@
 				<el-table v-loading="listLoading" :data="listb" fit highlight-current-row class="tableWidth">
 					<el-table-column label="序号" prop="key" align="center">
 					</el-table-column>
-					<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+					<el-table-column label="类型" prop="informtype" align="center" width="120">
 					</el-table-column>
-					<el-table-column label="企业名称" prop="Corpname" align="center">
+					<el-table-column label="设备名称" prop="Devicename" align="center">
 					</el-table-column>
-					<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+					<el-table-column label="数量" prop="num" align="center">
 					</el-table-column>
-					<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
-						<template slot-scope="scope">
-							<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
-						</template>
+					<el-table-column label="分类" prop="classification" align="center" width="120">
 					</el-table-column>
-					<el-table-column label="申请时间" prop="time" width="150" align="center">
+					<el-table-column label="设备需求地" prop="Equilocation" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="联系人" prop="contact" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="手机号码" prop="phone" align="center" width="120">
+					</el-table-column>
+					<el-table-column label="公司名称" prop="company" align="center" width="150">
+					</el-table-column>
+					<el-table-column label="申请时间" prop="applytime" align="center" width="150">
 					</el-table-column>
 					<el-table-column label="状态" prop="status" align="center">
 					</el-table-column>
@@ -80,7 +90,7 @@
 							<span @click="dialogFormVisibleb = true" class="pointer">
 							  		<el-tag>审核</el-tag>
 							  	</span>
-							<span @click="dialogFormVisibleb = true" class="pointer">
+							<span @click="handleModifyStatus(scope.row)" class="pointer">
 							  		<el-tag>编辑</el-tag>
 							  	</span>	
 						</template>
@@ -93,20 +103,25 @@
                 <el-table v-loading="listLoading" :data="listc" fit highlight-current-row class="tableWidth">
                 			<el-table-column label="序号" prop="key" align="center">
                 			</el-table-column>
-                			<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+                			<el-table-column label="类型" prop="informtype" align="center" width="120">
                 			</el-table-column>
-                			<el-table-column label="企业名称" prop="Corpname" align="center">
+                			<el-table-column label="设备名称" prop="Devicename" align="center">
                 			</el-table-column>
-                			<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+                			<el-table-column label="数量" prop="num" align="center">
                 			</el-table-column>
-                			<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
-                				<template slot-scope="scope">
-                					<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
-                				</template>
+                			<el-table-column label="分类" prop="classification" align="center" width="120">
                 			</el-table-column>
-                			<el-table-column label="审核人" prop="reviewer" align="center">
+                			<el-table-column label="设备需求地" prop="Equilocation" align="center" width="120">
                 			</el-table-column>
-                			<el-table-column label="拒绝时间" prop="time" width="150" align="center">
+                			<el-table-column label="联系人" prop="contact" align="center" width="120">
+                			</el-table-column>
+                			<el-table-column label="手机号码" prop="phone" align="center" width="120">
+                			</el-table-column>
+                			<el-table-column label="公司名称" prop="company" align="center" width="150">
+                			</el-table-column>
+							<el-table-column label="审核人" prop="reviewer" align="center" width="150">
+							</el-table-column>
+                			<el-table-column label="通过时间" prop="throughtime" align="center" width="150">
                 			</el-table-column>
                 			<el-table-column label="状态" prop="status" align="center">
                 			</el-table-column>
@@ -115,7 +130,7 @@
                 					<span @click="dialogFormVisiblea = true" class="pointer">
                 					    <el-tag type="danger">详情</el-tag>
                 					   </span>
-									<span @click="dialogFormVisiblea = true" class="pointer">
+									<span class="pointer">
 									    <el-tag type="success">置顶</el-tag>
 									   </span>
 									<span @click="deleteOrganList(scope.row)" class="pointer">
@@ -131,20 +146,25 @@
             	<el-table v-loading="listLoading" :data="listd" fit highlight-current-row class="tableWidth">
             			<el-table-column label="序号" prop="key" align="center">
             			</el-table-column>
-            			<el-table-column label="企业账户" prop="Corpaccount" align="center" width="120">
+            			<el-table-column label="类型" prop="informtype" align="center" width="120">
             			</el-table-column>
-            			<el-table-column label="企业名称" prop="Corpname" align="center">
+            			<el-table-column label="设备名称" prop="Devicename" align="center">
             			</el-table-column>
-            			<el-table-column label="营业范围" prop="businessscope" width="150" align="center">
+            			<el-table-column label="数量" prop="num" align="center">
             			</el-table-column>
-            			<el-table-column label="营业执照" prop="businesslicense" align="center" width="120">
-            				<template slot-scope="scope">
-            					<img style="width:100px;height:100px;border-radius: 4px;" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg" alt="" />
-            				</template>
+            			<el-table-column label="分类" prop="classification" align="center" width="120">
             			</el-table-column>
-            			<el-table-column label="审核人" prop="reviewer" align="center">
+            			<el-table-column label="设备需求地" prop="Equilocation" align="center" width="120">
             			</el-table-column>
-            			<el-table-column label="拒绝时间" prop="time" width="150" align="center">
+            			<el-table-column label="联系人" prop="contact" align="center" width="120">
+            			</el-table-column>
+            			<el-table-column label="手机号码" prop="phone" align="center" width="120">
+            			</el-table-column>
+            			<el-table-column label="公司名称" prop="company" align="center" width="150">
+            			</el-table-column>
+            			<el-table-column label="审核人" prop="reviewer" align="center" width="150">
+            			</el-table-column>
+            			<el-table-column label="拒绝时间" prop="Refusedtime" align="center" width="150">
             			</el-table-column>
             			<el-table-column label="状态" prop="status" align="center">
             			</el-table-column>
@@ -166,39 +186,59 @@
           	<el-row>
           		<el-col :span="10">
           			<el-form-item label="拒绝原因：">
-          				{{formInline.floorname}}
+          				{{formInline.Refusereason}}
           			</el-form-item>
           		</el-col>
           		<el-col :span="12">
           			<el-form-item label="拒绝时间：">
-          				{{formInline.floorstyle}}
+          				{{formInline.Refusetime}}
           			</el-form-item>
           		</el-col>
           		<el-col :span="10">
-          			<el-form-item label="企业账号：">
-          				{{formInline.floordescription}}
+          			<el-form-item label="类型：">
+          				{{formInline.informtype}}
           			</el-form-item>
           		</el-col>
           		<el-col :span="12">
-          			<el-form-item label="审核人：">
-          				{{formInline.roll}}
+          			<el-form-item label="申请时间：">
+          				{{formInline.applytime}}
           			</el-form-item>
           		</el-col>
-          		<el-col :span="24">
-          			<el-form-item label="企业名称：">
-          				{{formInline.sorting}}
+          		<el-col :span="10">
+          			<el-form-item label="设备名称：">
+          				{{formInline.Devicename}}
           			</el-form-item>
           		</el-col>
-          		<el-col :span="24">
-          			<el-form-item label="营业范围：" style="width:100%;word-wrap:break-word;height: auto;">
-          				{{formInline.Brand}}
+          		<el-col :span="12">
+          			<el-form-item label="联系人：">
+          				{{formInline.contact}}
           			</el-form-item>
           		</el-col>
-          		<el-col :span="24">
-          			<el-form-item label="营业执照：">
-          				<img style="width:100px;height:100px;border-radius: 4px;" :src="photo" alt="" />
-          			</el-form-item>
+          		<el-col :span="10">
+          			<el-form-item label="数量：">
+          				{{formInline.num}}
+					</el-form-item>
           		</el-col>
+				<el-col :span="12">
+					<el-form-item label="手机号码：">
+						{{formInline.phone}}
+					</el-form-item>
+				</el-col>
+				<el-col :span="10">
+					<el-form-item label="分类：">
+						{{formInline.classification}}
+					</el-form-item>
+				</el-col>
+				<el-col :span="12">
+					<el-form-item label="公司名称：">
+						{{formInline.company}}
+					</el-form-item>
+				</el-col>
+				<el-col :span="10">
+					<el-form-item label="设备需求地：">
+						{{formInline.Equilocation}}
+					</el-form-item>
+				</el-col>
           	</el-row>
           </el-form>
         </el-dialog>
@@ -207,30 +247,50 @@
 		    <el-form ref="dataForm" :model="formInline" label-position="left" label-width="100px" style="margin-left:50px;">
 		         <el-row>	
 		         	<el-col :span="10">
-		         		<el-form-item label="企业账号：">
-		         			{{formInline.floordescription}}
+		         		<el-form-item label="类型：">
+		         			{{formInline.informtype}}
 		         		</el-form-item>
 		         	</el-col>
 					<el-col :span="12">
 						<el-form-item label="申请时间：">
-							{{formInline.floorstyle}}
+							{{formInline.applytime}}
 						</el-form-item>
 					</el-col>
-		         	<el-col :span="24">
-		         		<el-form-item label="企业名称：">
-		         			{{formInline.sorting}}
+		         	<el-col :span="10">
+		         		<el-form-item label="设备名称：">
+		         			{{formInline.Devicename}}
 		         		</el-form-item>
 		         	</el-col>
-		         	<el-col :span="24">
-		         		<el-form-item label="营业范围：" style="width:100%;word-wrap:break-word;height: auto;">
-		         			{{formInline.Brand}}
+		         	<el-col :span="12">
+		         		<el-form-item label="联系人：">
+		         			{{formInline.contact}}
 		         		</el-form-item>
 		         	</el-col>
-		         	<el-col :span="24">
-		         		<el-form-item label="营业执照：">
-		         			<img style="width:100px;height:100px;border-radius: 4px;" :src="photo" alt="" />
-		         		</el-form-item>
+		         	<el-col :span="10">
+		         		<el-form-item label="数量：">
+		         			{{formInline.num}}
+						</el-form-item>
 		         	</el-col>
+					<el-col :span="12">
+						<el-form-item label="手机号码：">
+							{{formInline.phone}}
+						</el-form-item>
+					</el-col>
+					<el-col :span="10">
+						<el-form-item label="分类：">
+							{{formInline.classification}}
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="公司名称：">
+							{{formInline.company}}
+						</el-form-item>
+					</el-col>
+					<el-col :span="10">
+						<el-form-item label="设备需求地：">
+							{{formInline.Equilocation}}
+						</el-form-item>
+					</el-col>
 		         </el-row>
 		    </el-form>
 		        <div slot="footer" class="dialog-footer">
@@ -239,7 +299,7 @@
 		  </div>
 		</el-dialog>
 		<el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
-				<span>企业申请信息是否完整正确，确认通过审核吗?</span>
+				<span>审核通过后信息将展示在前端，确认通过审核吗？</span>
 				<span slot="footer" class="dialog-footer">
 			   <el-button @click="dialogVisible = false">取 消</el-button>
 			   <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -308,7 +368,6 @@
 				dialogVisible: false,
 				dialogFormVisibleb: false,
 				listLoading: true,
-				photo:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559262470783&di=516462a284445cc1ef78d513e9a4080c&imgtype=0&src=http%3A%2F%2Fimg0.ph.126.net%2F5rfWhY25CmOABR4oeyH11Q%3D%3D%2F2830512365819902260.jpg',				
 				formInline: {
 					floorname:'',
 					reason:''
@@ -328,22 +387,36 @@
 			this.getListc();
 			this.getListd();
 			this.formInline = {
-				floorname: "XXXXXX",
-				floorstyle:'2017-10-10 10:20:00',
-				floordescription:'13213542321543',
-				roll:"黎明",
-				sorting:"西安有限公司",
-				Brand:'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-			}
+				Refusereason:'拒绝原因',
+				Refusetime:'2017-12-10 10:20:00',
+				informtype: "求购",
+				applytime:'2017-10-10 10:20:00',
+				Devicename:'采煤机',
+				contact:'李晓鹤',
+				num:'1',
+				phone:'135697546325',
+				classification:'采煤机配件',
+				company:'李氏集团有限公司',
+				Equilocation:'西安',
+				}
 		},
 		methods: {
 			searchClick() {
 
 			},
+			//添加
 			handleCreate() {
 				this.$router.push({
 					path: '/informManage/sale/add'
 				})
+			},
+			//编辑
+			handleModifyStatus(row) {
+				sessionStorage.formInit = row.id;
+				this.$router.push({
+					id: sessionStorage.formInit,
+					path: '/informManage/sale/edit'
+				});
 			},
 			handleClick(tab, event) {
              console.log(tab, event);
@@ -353,19 +426,27 @@
 				this.lista = [];
 				this.lista = [{
 					    key:'1',
-					    Corpaccount: '13659756423',
-					    Corpname:'有小雨',
-					    businessscope: '营业范围介绍',
-					    businesslicense: '',
+					    informtype: '求购',
+					    Devicename:'采煤机',
+					    num: '1',
+					    classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
 					    status:'待审核'
 					},
 					{
 						key:'2',
-						Corpaccount: '13659756423',
-						Corpname:'小白',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
-						status:'已拒绝'
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
+						status:'待审核'
 					}];
 				this.total = 2;
 			},
@@ -374,20 +455,28 @@
 				this.listb = [];
 				this.listb = [{
 					    key:'1',
-						Corpaccount: '13659756423',
-						Corpname:'有小雨',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
-						time:'20190725 10:20:00',
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
+						applytime:'20190120 20:20:10',
 						status:'待审核'
 					},
 					{
-						key:'1',
-						Corpaccount: '13659756423',
-						Corpname:'有小雨',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
-						time:'20190725 10:20:00',
+						key:'2',
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
+						applytime:'20190120 20:20:10',
 						status:'待审核'
 					}];
 				this.total = 2;
@@ -397,23 +486,31 @@
 				this.listc = [];
 				this.listc = [{
 					    key:'1',
-						Corpaccount: '13659756423',
-						Corpname:'有小雨',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
-						reviewer:'有小雨',
-						time:'20190725 10:20:00',
-						status:'已拒绝'
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
+						reviewer:'小白',
+						throughtime:'20190120 20:20:10',
+						status:'已通过'
 					},
 					{
 						key:'2',
-						Corpaccount: '13659756423',
-						Corpname:'小白',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
 						reviewer:'小白',
-						time:'20190725 10:20:00',
-						status:'已拒绝'
+						throughtime:'20190120 20:20:10',
+						status:'已通过'
 					}];
 				this.total = 2;
 			},
@@ -422,22 +519,30 @@
 				this.listd = [];
 				this.listd = [{
 					    key:'1',
-						Corpaccount: '13659756423',
-						Corpname:'有小雨',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
-						reviewer:'有小雨',
-						time:'20190725 10:20:00',
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
+						reviewer:'小白',
+						Refusedtime:'20190120 20:20:10',
 						status:'已拒绝'
 					},
 					{
 						key:'2',
-						Corpaccount: '13659756423',
-						Corpname:'小白',
-						businessscope: '营业范围介绍',
-						businesslicense: '',
+						informtype: '求购',
+						Devicename:'采煤机',
+						num: '1',
+						classification: '采煤机配件',
+						Equilocation: '西安',
+						contact: '李晓鹤',
+						phone: '135697546325',
+						company: '李氏集团有限公司',
 						reviewer:'小白',
-						time:'20190725 10:20:00',
+						Refusedtime:'20190120 20:20:10',
 						status:'已拒绝'
 					}];
 				this.total = 2;

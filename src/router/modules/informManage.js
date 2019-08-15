@@ -23,6 +23,13 @@ const informRouter = {
 		  component: () => import('@/views/informManage/sale/add'),
 		  meta: { title: '添加', noCache: true}
 		},
+		{
+		  path: '/informManage/sale/edit',
+		  name:'/informManage/sale/edit',
+			hidden: true ,
+		  component: () => import('@/views/informManage/sale/edit'),
+		  meta: { title: '编辑', noCache: true}
+		},
     {
       path: '/informManage/Rentout/index',
       name: '/informManage/Rentout/index',
